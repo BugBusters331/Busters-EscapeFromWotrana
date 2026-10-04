@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Busters-EscapeFromWotrana/Busters-EscapeFromWotrana.vcxproj" />
+</Solution>
