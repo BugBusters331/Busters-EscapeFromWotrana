@@ -140,6 +140,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Busters-EscapeFromWotrana.cpp" />
+    <ClCompile Include="Chunks.cpp" />
+    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="Player.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Chunks.h" />
+    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
