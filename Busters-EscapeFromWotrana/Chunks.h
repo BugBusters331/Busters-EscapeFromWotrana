@@ -1,9 +1,13 @@
 #pragma once
+#include <string>
+#include <vector>
+using namespace std;
+
 class Chunks{
 private:
-	int board;
-	int chunkx;
-	int chunky;
+	vector<string> board;
+	int chunkX;
+	int chunkY;
 public:
 	Chunks();
 	
