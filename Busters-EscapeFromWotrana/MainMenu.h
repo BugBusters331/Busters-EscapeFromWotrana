@@ -1,4 +1,10 @@
 #pragma once
-class MainMenu
-{};
+class mainMenu
+{
+	public:
+		void displayMenu();
+		int getuserChoice();
+	private:
+		int userChoice;
+};
 
