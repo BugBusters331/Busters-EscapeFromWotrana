@@ -6,3 +6,7 @@ public:
 	// Public member variables and methods can be declared here
 };
 
+class start {
+public:
+	void StartDiologue();
+};
