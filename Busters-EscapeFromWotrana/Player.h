@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
-class Player
-{
+class Player {
 private:
 	int playerX;
 	int playerY;
@@ -11,5 +10,7 @@ public:
 	void moveUp();
 	void moveRight();
 	void moveLeft();
+	int takeDamage(int damage);
+	void death();
 };
 
