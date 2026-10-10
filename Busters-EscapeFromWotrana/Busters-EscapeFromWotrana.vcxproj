@@ -144,12 +144,14 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="StoryManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chunks.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="StoryManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
