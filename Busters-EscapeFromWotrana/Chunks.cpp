@@ -24,21 +24,25 @@ Chunks::Chunks() { // Constructor initializes the chunk coordinates and the boar
         "#..................#",
         "#..................#",
         "#..................#",
-        "#########..#########"
+        "#########EE#########"
     };
 
 }
-// drawChunks method displays the current chunk with the player's position marked by '@'
-void Chunks::drawChunks(int playerX, int playerY) const{ 
-    for(int x = 0; x <board[playerY].size(); ++x){
-        if (x == playerX && playerY == playerY){
-            cout << "@"; // Display the player at the current position
-        } 
-        else {
-            cout << board[playerY][x]; // Display the board cell at the current position
+
+void Chunks::drawChunks(int playerX, int playerY) const {
+    for (int y = 0; y < board.size(); y++) {
+        for (int x = 0; x < board[y].size(); x++) {
+
+            if (x == playerX && y == playerY) {
+                cout << "@";
+            }
+            else {
+                cout << board[y][x];
+            }
         }
+
+        cout << endl;
     }
-        cout << endl; // Move to the next line after displaying the current row of the chunk
 }
 
 bool Chunks::isWalkable(int playerX, int playerY) const{ // Checks if the player can walk on the specified cell

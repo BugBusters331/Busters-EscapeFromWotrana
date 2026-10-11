@@ -1,5 +1,8 @@
 #pragma once
 #include <iostream>
+#include <string>
+using namespace std;
+
 class Player {
 private:
 	string playerName;
@@ -7,13 +10,25 @@ private:
 	int playerY;
 	int playerHealth;
 public:
-	Player(string name, int x, int y, int health);
+	Player();
+	//Player(string name, int x, int y, int health);
 	void setPlayerName(string name);
+	string getPlayerName();
+
+	int getPlayerX();
+	int getPlayerY();
+
+	void setPlayerX(int x);
+	void setPlayerY(int y);
+	void setPlayerPosition(int x, int y);
+	// movement functions
 	void moveDown();
 	void moveUp();
 	void moveRight();
 	void moveLeft();
-	int takeDamage(int damage);
+
+	// getters and setters for player position
+	void takeDamage(int damage);
 	void death();
 };
 

@@ -3,6 +3,9 @@
 using namespace std;
 
 int main(){
-    cout << "Game In Progress" << endl;
-    return 0;   
+    GameManager game;
+
+	game.startGame();
+
+	return 0;
 }
