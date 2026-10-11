@@ -20,6 +20,7 @@ int Player::takeDamage(int damage) { //subtracts damage from players health then
 	if (playerHealth <= 0) {
 		death();
 	}
+	return playerHealth;
 }
 void Player::death() { //displays death message
 	cout << "You Died. Press enter to return to main menu.";
