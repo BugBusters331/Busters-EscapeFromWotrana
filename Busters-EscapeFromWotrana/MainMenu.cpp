@@ -5,7 +5,6 @@ using namespace std;
 
 void mainMenu::displayMenu()
 {
-	int input;
 	cout << "*----------------------------------------------*" << endl;
 	cout << "|          Bug Busters Studios Presents:       |" << endl;
 	cout << "|***************ESCAPE FROM WOTRANA************|" << endl;
@@ -14,4 +13,24 @@ void mainMenu::displayMenu()
 	cout << "|			   Press 2 for User Manual          |" << endl;
 	cout << "|                Press 3 to Exit               |" << endl;
 	cout << "*----------------------------------------------*" << endl;
+}
+
+int mainMenu::getuserChoice()
+{
+	cout << "Enter your choice: ";
+	cin >> userChoice;
+
+	return userChoice;
+}
+
+void mainMenu::displayUserManual()
+{
+	cout << "*---------------------------------*" << endl;
+	cout << "|***Welcome to the User Manual!***|" << endl;
+	cout << "||" << endl;
+	cout << "||" << endl;
+	cout << "||" << endl;
+	cout << "||" << endl;
+	cout << "||" << endl;
+	cout << "|  Press 1 to return to Main Menu |" << endl;
 }
