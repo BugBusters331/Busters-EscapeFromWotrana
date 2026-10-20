@@ -18,4 +18,5 @@ public:
 	void pause(int pauseTime);
 	void dots(int dots);
 	string prompt(const string& text);
+	string pars(const string& text);
 };

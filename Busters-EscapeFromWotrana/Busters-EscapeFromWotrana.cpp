@@ -55,11 +55,11 @@ int main(){
         bool choicePicked = false;
         while (choicePicked == false) {
             choice1 = first.prompt(prompt1);
-            if (choice1 == "yes" || choice1 == "y") {
+            if (choice1 == "y") {
                 first.printSlow(line11);
                 choicePicked = true;
             }
-            else if (choice1 == "no" || choice1 == "n") {
+            else if (choice1 == "n") {
                 first.printSlow(line11A);
                 choicePicked = true;
             }
@@ -68,7 +68,7 @@ int main(){
                 cout << "Invalid Input, try again" << endl;
             }
         }
-        if (choice1 == "yes" || choice1 == "y") {
+        if (choice1 == "y") {
             first.printSlow(engineLine1);
             first.printSlow(engineLine2);
             bool engineFixed = false;
@@ -101,7 +101,7 @@ int main(){
                         choicePicked = false;
                         while (choicePicked == false) {
                             string choice2 = first.prompt(fixChoice);
-                            if (choice2 == "yes" || choice2 == "y") {
+                            if (choice2 == "y") {
                                 string fixLine1 = "You place a screw into an opening, and attempt to spin it with your hand, which isn't working very well.";
                                 string fixLine2 = "It's at this moment you remember you had a DRILL on hand this whole time.";
                                 first.printSlow(fixLine1);
@@ -123,7 +123,7 @@ int main(){
                                 first.printSlow(finaly);
                                 engineFixed = true;
                             }
-                            else if (choice2 == "no" || choice2 == "n") {
+                            else if (choice2 == "n") {
                                 string why = "Odd choice but okay.";
                                 first.printSlow(why);
                                 choicePicked = true;

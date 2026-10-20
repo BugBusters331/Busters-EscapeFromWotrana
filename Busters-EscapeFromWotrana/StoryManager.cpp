@@ -47,7 +47,18 @@ string dialogue::prompt(const string& text) {
     cout << text << endl;
     string choice;
     cin >> choice;
-    return choice;
+    string parsOut = pars(choice);
+    return parsOut;
+}
+
+string dialogue::pars(const string& text) {
+    if (text == "y" || text == "yes" || text == "Y" || text == "YES") {
+        text = "y";
+    }
+    if (text == "n" || text == "no" || text == "N" || text == "NO") {
+        text = "n";
+    }
+    return text;
 }
 
 	
