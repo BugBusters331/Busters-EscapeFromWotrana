@@ -63,3 +63,17 @@ void Player::setPlayerPosition(int x, int y) { //sets players x and y coordinate
 	playerX = x;
 	playerY = y;
 }
+
+
+int Player::getPlayerHealth() {
+    return playerHealth;
+}
+
+void Player::setPlayerHealth(int health) {
+    if (health < 0) {
+        playerHealth = 0;
+    }
+    else {
+        playerHealth = health;
+    }
+}
