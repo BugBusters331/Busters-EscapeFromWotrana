@@ -30,5 +30,9 @@ public:
 	// getters and setters for player position
 	void takeDamage(int damage);
 	void death();
+	
+	// getters and setters for player health
+	int getPlayerHealth();
+	void setPlayerHealth(int health);
 };
 
