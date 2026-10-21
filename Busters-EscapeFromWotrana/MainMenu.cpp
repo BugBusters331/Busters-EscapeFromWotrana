@@ -29,7 +29,17 @@ void mainMenu::displayUserManual()
 {
 	cout << "*----------------------------------------------*" << endl;
 	cout << "|******************USER MANUAL*****************|" << endl;
+	cout << "| Escape from Wotrana is a text-based adventure|" << endl;
+	cout << "| game where you must venture through various  |" << endl;
+	cout << "| regions of the distant planet of Wotrana in  |" << endl;
+	cout << "| order to repair your damaged spaceship.      |" << endl;
+	cout << "|**********************************************|" << endl;
+	cout << "|                                              |" << endl;
+	cout << "|                                              |" << endl;
 	cout << "|                                              |" << endl;
 	cout << "*----------------------------------------------*" << endl;
+	
+	
+
 }
 
