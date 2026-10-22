@@ -1,5 +1,6 @@
 #include "GameManager.h"
 #include "StoryManager.h"
+#include "BattleManager.h"
 #include "MainMenu.h"
 #include <iostream>
 #include <string>
@@ -7,7 +8,37 @@
 #include <chrono>
 using namespace std;
 
-int main(){
+
+int main() {
+
+    // TEMPORARY BATTLE TEST
+    Player player;
+    player.setPlayerName("Captain");
+    player.setPlayerHealth(100);
+
+    Enemy lyre("Lyre", 100, 12);
+
+    BattleManager battle;
+    battle.startBattle(player, lyre);
+
+    while (battle.isBattleActive()) {
+        cout << "\nPress Enter to attack...";
+        cin.get();
+
+        int damage = battle.playerAttack();
+
+        cout << "Damage dealt: " << damage << endl;
+    }
+
+    cout << "\nBattle test complete!" << endl;
+
+    return 0;
+
+    // Existing main menu code below
+}
+
+
+/*int main(){
 
     mainMenu menu;
     int choice;
@@ -163,3 +194,4 @@ int main(){
 
 	return 0;
 }
+    */
