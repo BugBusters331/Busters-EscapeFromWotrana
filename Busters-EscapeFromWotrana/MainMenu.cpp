@@ -25,8 +25,7 @@ int mainMenu::getuserChoice()
 	return userChoice;
 }
 
-void mainMenu::displayUserManual()
-{
+void mainMenu::displayUserManual() {
 	cout << "*----------------------------------------------*" << endl;
 	cout << "|******************USER MANUAL*****************|" << endl;
 	cout << "| Escape from Wotrana is a text-based adventure|" << endl;
@@ -44,6 +43,6 @@ void mainMenu::displayUserManual()
 	cout << "************************************************" << endl;
 	cout << "| Press any key to return to the main menu     |" << endl;
 	cout << "*----------------------------------------------*" << endl;
-
+}
 
 
