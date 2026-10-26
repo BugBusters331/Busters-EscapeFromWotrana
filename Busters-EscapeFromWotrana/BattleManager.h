@@ -4,29 +4,12 @@
 #include "random"
 //#include "Enemy.h"
 
-class BattleManager{
-    private:
-        Player* player;
-        Enemy* enemy;
-        bool battleActive;
-    public:
-        BattleManager();
-
-        void startBattle(Player& player, Enemy& enemy);
-
-        bool isBattleActive();
-
-        int rollD20();
-        int playerAttack();
-        
-};
-
-
 class Enemy {
 private:
     string enemyName;
     int enemyHealth;
     int enemyArmor;
+    int enemyDamage;
 
 public:
     Enemy();
@@ -42,4 +25,25 @@ public:
     int getEnemyArmor();
 
     void enemyTakeDamage(int damage);
+
+    int getEnemyDamage();
+    void setEnemyDamage(int damage);
+};
+
+class BattleManager {
+private:
+    Player* player;
+    Enemy* enemy;
+    bool battleActive;
+public:
+    BattleManager();
+
+    void startBattle(Player& player, Enemy& enemy);
+
+    bool isBattleActive();
+
+    int rollD20();
+    int playerAttack();
+
+    int enemyAttack();
 };

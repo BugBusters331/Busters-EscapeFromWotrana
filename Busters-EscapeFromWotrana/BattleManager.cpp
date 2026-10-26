@@ -87,6 +87,54 @@ int BattleManager::playerAttack() {
     return damage;
 }
 
+int BattleManager::enemyAttack() {
+    if (!battleActive || player == nullptr || enemy == nullptr) {
+        return 0;
+    }
+
+    int roll = rollD20();
+    int playerAC = player->getPlayerArmor();
+    int damage = 0;
+
+    cout << "\nEnemy rolled a D20: " << roll << endl;
+
+    if (roll == 1) {
+        cout << "Enemy missed!\n";
+        return 0;
+    }
+
+    if (roll >= playerAC || roll == 20) {
+        static random_device rd;
+        static mt19937 generator(rd());
+
+        uniform_int_distribution<int> damageRoll(20, 40);
+        damage = damageRoll(generator);
+
+        if (roll == 20) {
+            damage *= 2;
+            cout << "Enemy critical hit!\n";
+        }
+
+        player->setPlayerHealth(
+            player->getPlayerHealth() - damage
+        );
+
+        cout << "Enemy hit for " << damage << " damage!\n";
+        cout << "Player Health: "
+            << player->getPlayerHealth() << endl;
+
+        if (player->getPlayerHealth() <= 0) {
+            cout << "\nYou lose!\n";
+            battleActive = false;
+        }
+    }
+    else {
+        cout << "Enemy attack missed!\n";
+    }
+    return damage;
+}
+
+
 
 // Enemy class implementation
 
@@ -95,12 +143,14 @@ Enemy::Enemy() {
     enemyName = "Unknown";
     enemyHealth = 100;
     enemyArmor = 10;
+    enemyDamage = 3;
 }
 
 Enemy::Enemy(string name, int health, int armor) {
     enemyName = name;
     enemyHealth = health;
     enemyArmor = armor;
+    enemyDamage = 3;
 }
 
 void Enemy::setEnemyName(string name) {
@@ -136,5 +186,15 @@ void Enemy::enemyTakeDamage(int damage) {
 
     if (enemyHealth < 0) {
         enemyHealth = 0;
+    }
+}
+
+int Enemy::getEnemyDamage() {
+    return enemyDamage;
+}
+
+void Enemy::setEnemyDamage(int damage) {
+    if (damage >= 0) {
+        enemyDamage = damage;
     }
 }
