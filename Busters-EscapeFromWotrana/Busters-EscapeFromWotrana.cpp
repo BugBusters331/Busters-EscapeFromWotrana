@@ -25,9 +25,11 @@ int main() {
         cout << "\nPress Enter to attack...";
         cin.get();
 
-        int damage = battle.playerAttack();
+        battle.playerAttack(); // Player will attack first
 
-        cout << "Damage dealt: " << damage << endl;
+        if (battle.isBattleActive()) { // Enemy will attack back if its still alive
+            battle.enemyAttack();
+        }
     }
 
     cout << "\nBattle test complete!" << endl;
