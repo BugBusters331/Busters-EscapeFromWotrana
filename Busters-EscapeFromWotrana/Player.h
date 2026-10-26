@@ -28,6 +28,7 @@ public:
 	void moveLeft();
 
 	// getters and setters for player position
+	int getPlayerHealth();
 	void takeDamage(int damage);
 	void death();
 };

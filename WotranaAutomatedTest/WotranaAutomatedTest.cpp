@@ -23,5 +23,15 @@ namespace WotranaAutomatedTest
 			chrissy.setPlayerName(playerName);
 			Assert::AreEqual(playerName, chrissy.getPlayerName());
 		}
+		TEST_METHOD(TestPlayerHealth) {
+			Logger::WriteMessage(L"Testing ability to initialize player health and take damage\n");
+			Player matt;
+			Assert::AreEqual(100, matt.getPlayerHealth());
+			matt.takeDamage(20);
+			Assert::AreEqual(80, matt.getPlayerHealth());
+			matt.takeDamage(100);
+			Assert::AreEqual(-20, matt.getPlayerHealth());
+			Assert::AreEqual(0, matt.getPlayerHealth(), L"Player health should not go below 0");
+		}
 	};
 }
