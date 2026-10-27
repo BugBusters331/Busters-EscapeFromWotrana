@@ -11,7 +11,7 @@ using namespace std;
 int dialogue::speedChoice() {
     string sampleLine = "Text can appear slowly (like it's doing now) to add to the experience.";
     printSlow(sampleLine, 1);
-    string ask = "Press 1 for slow text, press 2 for fast text, press 3 for instant text";
+    string ask = "Press 1 for normal text, press 2 for fast text, press 3 for instant text";
     bool speedChosen = false;
     while (!speedChosen) {
         string speed = prompt(ask);
