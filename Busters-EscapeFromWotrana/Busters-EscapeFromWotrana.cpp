@@ -20,6 +20,7 @@ int main(){
 
         cout << "Game In Progress" << endl;
         dialogue first;
+        float speed = first.speedChoice();
         string line1 = "It's been a long day of traveling through space, hasn't it?";
         string line2 = "Your ship's practically out of fuel, gonna have to take care of that soon.";
         string line3 = "And these missions aren't getting any easier either.";
@@ -38,29 +39,29 @@ int main(){
         string engineLine3 = "(Items labeled in ALL CAPS can be interacted with. Try interacting with the screws by typing SCREWS.)";
         string standardPrompt = "What will you do?";
 
-        first.printSlow(line1);
-        first.printSlow(line2);
-        first.printSlow(line3);
-        first.printSlow(line4);
-        first.pause(1000);
-        first.printSlow(line5);
-        first.printSlow(line6);
-        first.printSlow(line7);
-        first.printSlow(line8);
-        first.dots(3);
-        first.printSlow(line9);
-        first.pause(1000);
-        first.printSlow(line10);
+        first.printSlow(line1, speed);
+        first.printSlow(line2, speed);
+        first.printSlow(line3, speed);
+        first.printSlow(line4, speed);
+        first.pause(1000, speed);
+        first.printSlow(line5, speed);
+        first.printSlow(line6, speed);
+        first.printSlow(line7, speed);
+        first.printSlow(line8, speed);
+        first.dots(3, speed);
+        first.printSlow(line9, speed);
+        first.pause(1000, speed);
+        first.printSlow(line10, speed);
         string choice1;
         bool choicePicked = false;
         while (choicePicked == false) {
             choice1 = first.prompt(prompt1);
             if (choice1 == "y") {
-                first.printSlow(line11);
+                first.printSlow(line11, speed);
                 choicePicked = true;
             }
             else if (choice1 == "n") {
-                first.printSlow(line11A);
+                first.printSlow(line11A, speed);
                 choicePicked = true;
             }
             else
@@ -69,43 +70,43 @@ int main(){
             }
         }
         if (choice1 == "y") {
-            first.printSlow(engineLine1);
-            first.printSlow(engineLine2);
+            first.printSlow(engineLine1, speed);
+            first.printSlow(engineLine2, speed);
             bool engineFixed = false;
             string interaction = "none";
             bool hasScrews = false;
             bool hasDrill = false;
-            first.printSlow(engineLine3);
+            first.printSlow(engineLine3, speed);
             while (engineFixed == false) {
                 interaction = first.prompt(standardPrompt);
                 if (interaction == "SCREWS") {
                     if (!hasScrews) {
                         string screwLine = "You pick up the screws. Now you can place them in the ENGINE by interacting with it.";
-                        first.printSlow(screwLine);
+                        first.printSlow(screwLine, speed);
                         hasScrews = true;
                     }
                     else {
                         string screwLine = "You have the screws in your hand. You can place them in the ENGINE by interacting with it.";
-                        first.printSlow(screwLine);
+                        first.printSlow(screwLine, speed);
                     }
                 }
                 else if (interaction == "ENGINE") {
                     if (!hasScrews) {
                         string engineFail = "Yup. That's the engine. But you don't have the screws to put in yet, they're on the floor.";
-                        first.printSlow(engineFail);
+                        first.printSlow(engineFail, speed);
                     }
                     else {
                         string engineFix = "The engine is missing some screws, which you're holding in your hand.";
                         string fixChoice = "Do you wish to put the screws back in their spots? (yes/no)";
-                        first.printSlow(engineFix);
+                        first.printSlow(engineFix, speed);
                         choicePicked = false;
                         while (choicePicked == false) {
                             string choice2 = first.prompt(fixChoice);
                             if (choice2 == "y") {
                                 string fixLine1 = "You place a screw into an opening, and attempt to spin it with your hand, which isn't working very well.";
                                 string fixLine2 = "It's at this moment you remember you had a DRILL on hand this whole time.";
-                                first.printSlow(fixLine1);
-                                first.printSlow(fixLine2);
+                                first.printSlow(fixLine1, speed);
+                                first.printSlow(fixLine2, speed);
                                 hasDrill = true;
                                 choicePicked = true;
                                 bool choseDrill = false;
@@ -116,16 +117,16 @@ int main(){
                                     }
                                     else {
                                         string dumb = "Just type DRILL it's not that hard";
-                                        first.printSlow(dumb);
+                                        first.printSlow(dumb, speed);
                                     }
                                 }
                                 string finaly = "You smack your head with your hand, wondering why you didn't just use the drill to begin with, then drill the screws into place.";
-                                first.printSlow(finaly);
+                                first.printSlow(finaly, speed);
                                 engineFixed = true;
                             }
                             else if (choice2 == "n") {
                                 string why = "Odd choice but okay.";
-                                first.printSlow(why);
+                                first.printSlow(why, speed);
                                 choicePicked = true;
                             }
                             else
