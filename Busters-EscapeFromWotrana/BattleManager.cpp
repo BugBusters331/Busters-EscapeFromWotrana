@@ -56,18 +56,15 @@ int BattleManager::playerAttack() {
 
     // Check if the attack hits
     if (roll >= enemyAC || roll == 20) {
-        static random_device rd;
-        static mt19937 generator(rd());
+        // Get damage from player stats
+        damage = player->getPlayerDamage();
 
-        uniform_int_distribution<int> damageRoll(20, 40);
-        damage = damageRoll(generator);
-
-        // Natural 20 deals double damage
+        // Check for critical hit
         if (roll == 20) {
             damage *= 2;
             cout << "Critical hit!\n";
         }
-
+        
         enemy->enemyTakeDamage(damage);
 
         cout << "Attack hit for " << damage << " damage!\n";
@@ -104,11 +101,8 @@ int BattleManager::enemyAttack() {
     }
 
     if (roll >= playerAC || roll == 20) {
-        static random_device rd;
-        static mt19937 generator(rd());
-
-        uniform_int_distribution<int> damageRoll(20, 40);
-        damage = damageRoll(generator);
+        // Get damage from enemy stats
+        damage = enemy->getEnemyDamage();
 
         if (roll == 20) {
             damage *= 2;
@@ -135,6 +129,56 @@ int BattleManager::enemyAttack() {
 }
 
 
+void BattleManager::runBattle() {
+    if (!battleActive || player == nullptr || enemy == nullptr) {
+        return;
+    }
+
+    while (battleActive) {
+        int choice;
+
+        cout << "\n===== PLAYER TURN =====\n";
+        cout << "Player HP: " << player->getPlayerHealth() << endl;
+        cout << enemy->getEnemyName() << " HP: "
+             << enemy->getEnemyHealth() << endl;
+
+        cout << "\n1. Attack\n";
+        cout << "2. Defend (Coming Soon)\n";
+        cout << "3. Item (Unavailable)\n";
+        cout << "4. Flee (Unavailable)\n";
+        cout << "Choose an action: ";
+
+        if (!(cin >> choice)) {
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cout << "Invalid input!\n";
+            continue;
+        }
+
+        if (choice == 1) {
+            playerAttack();
+        }
+        else if (choice >= 2 && choice <= 4) {
+            cout << "This action is not available yet!\n";
+            continue;
+        }
+        else {
+            cout << "Invalid choice!\n";
+            continue;
+        }
+
+        // Stop if enemy was defeated
+        if (!battleActive) {
+            break;
+        }
+
+        cout << "\n===== ENEMY TURN =====\n";
+        enemyAttack();
+    }
+
+    cout << "\n===== BATTLE ENDED =====\n";
+}
+
 
 // Enemy class implementation
 
@@ -143,14 +187,14 @@ Enemy::Enemy() {
     enemyName = "Unknown";
     enemyHealth = 100;
     enemyArmor = 10;
-    enemyDamage = 3;
+    enemyDamage = 20;
 }
 
-Enemy::Enemy(string name, int health, int armor) {
+Enemy::Enemy(string name, int health, int armor, int damage) {
     enemyName = name;
     enemyHealth = health;
     enemyArmor = armor;
-    enemyDamage = 3;
+    enemyDamage = damage;
 }
 
 void Enemy::setEnemyName(string name) {

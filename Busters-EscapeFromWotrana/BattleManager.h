@@ -42,6 +42,8 @@ public:
 
     bool isBattleActive();
 
+    void runBattle();
+
     int rollD20();
     int playerAttack();
 
