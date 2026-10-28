@@ -13,7 +13,7 @@ private:
 
 public:
     Enemy();
-    Enemy(string name, int health, int armor);
+    Enemy(string name, int health, int armor, int damage);
 
     void setEnemyName(string name);
     string getEnemyName();
