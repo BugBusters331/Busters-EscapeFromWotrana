@@ -22,6 +22,8 @@ void BattleManager::startBattle(Player& player, Enemy& enemy) {
     cout << "Player Health: " << player.getPlayerHealth() << endl;
     cout << "Enemy Health: " << enemy.getEnemyHealth() << endl;
     cout << "==========================\n";
+
+	runBattle();
 }
 
 bool BattleManager::isBattleActive() {
