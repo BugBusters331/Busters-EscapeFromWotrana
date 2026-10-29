@@ -170,15 +170,6 @@ int main(){
         first.printSlow("poop", speed);
 
 
-
-
-
-
-
-
-        GameManager game;
-
-        game.startGame();
     }
 
     else if (choice == 2)
