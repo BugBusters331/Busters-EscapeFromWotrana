@@ -15,7 +15,8 @@ int main() {
     Player player;
     player.setPlayerName("Captain");
     player.setPlayerHealth(100);
-
+    player.setPlayerDamage(12);
+	player.setPlayerArmor(15);
     Enemy lyre("Lyre", 100, 12, 10);
     BattleManager battle;
 
