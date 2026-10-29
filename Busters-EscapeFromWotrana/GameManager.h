@@ -20,5 +20,6 @@ public:
 	void attemptMove(int newX, int newY);
 	void changeChunk();
 	void stopGame();
+
 };
 

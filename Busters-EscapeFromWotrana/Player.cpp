@@ -5,7 +5,9 @@ using namespace std;
 Player::Player() {
 	playerX = 1;
 	playerY = 1;
-	playerHealth = 100;
+	playerHealth = 20;
+	playerDamage = 3;
+	playerArmor = 5;
 }
 
 void Player::setPlayerName(string name) {
@@ -29,17 +31,7 @@ void Player::moveLeft() { //moves players x coordinate left 1
 	playerX--;
 }
 
-void Player::takeDamage(int damage) { //subtracts damage from players health then outputs remaining health
-	playerHealth -= damage;
-	cout << playerHealth;
-	if (playerHealth <= 0) {
-		death();
-	}
 
-}
-void Player::death() { //displays death message
-	cout << "You Died. Press enter to return to main menu.";
-}
 
 int Player::getPlayerX() { //returns players x coordinate
 	return playerX;
@@ -62,4 +54,38 @@ void Player::setPlayerY(int y) { //sets players y coordinate
 void Player::setPlayerPosition(int x, int y) { //sets players x and y coordinates
 	playerX = x;
 	playerY = y;
+}
+
+
+int Player::getPlayerHealth() {
+    return playerHealth;
+}
+
+void Player::setPlayerHealth(int health) {
+    if (health < 0) {
+        playerHealth = 0;
+    }
+    else {
+        playerHealth = health;
+    }
+}
+
+int Player::getPlayerArmor() {
+    return playerArmor;
+}
+
+void Player::setPlayerArmor(int armor) {
+    if (armor >= 0) {
+        playerArmor = armor;
+    }
+}
+
+int Player::getPlayerDamage() {
+    return playerDamage;
+}
+
+void Player::setPlayerDamage(int damage) {
+    if (damage >= 0) {
+        playerDamage = damage;
+    }
 }

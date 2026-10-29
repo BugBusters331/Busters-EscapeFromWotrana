@@ -13,9 +13,11 @@ public:
 
 class dialogue {
 public:
-	void print(const string& text);
-	void printSlow(const string& text);
-	void pause(int pauseTime);
-	void dots(int dots);
-	string prompt(const string& text);
+	int speedChoice();
+	void print(string text);
+	void printSlow( string text, int speed);
+	void pause(int pauseTime, int speed);
+	void dots(int dots, int speed);
+	string prompt(string text);
+	string pars(string text);
 };

@@ -8,7 +8,10 @@ private:
 	string playerName;
 	int playerX;
 	int playerY;
+
 	int playerHealth;
+	int playerDamage;
+	int playerArmor;
 public:
 	Player();
 	//Player(string name, int x, int y, int health);
@@ -27,8 +30,15 @@ public:
 	void moveRight();
 	void moveLeft();
 
-	// getters and setters for player position
-	void takeDamage(int damage);
-	void death();
+	// getters and setters for player stats
+	int getPlayerDamage();
+	void setPlayerDamage(int damage);
+	int getPlayerArmor();
+	void setPlayerArmor(int armor);
+	
+	
+	// getters and setters for player health
+	int getPlayerHealth();
+	void setPlayerHealth(int health);
 };
 
