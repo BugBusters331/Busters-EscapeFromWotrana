@@ -11,21 +11,20 @@ using namespace std;
 
 int main() {
 
-    // TEMPORARY BATTLE TEST
+    // Set up the player and enemy for the opening battle
     Player player;
     player.setPlayerName("Captain");
     player.setPlayerHealth(100);
 
     Enemy lyre("Lyre", 100, 12, 10);
-
     BattleManager battle;
-    battle.startBattle(player, lyre);
 
-        cout << "Game In Progress" << endl;
+    
+
+
         dialogue first;
         float speed = first.speedChoice();
         string stdPrompt = "What will you do?";
-        string line3 = "And these missions aren't getting any easier either.";
         first.printSlow("It's been a long day of traveling through space, hasn't it?", speed);
         first.printSlow("Your ship's practically out of fuel, gonna have to take care of that soon.", speed);
         first.printSlow("And these missions aren't getting any easier either.", speed);
@@ -62,7 +61,6 @@ int main() {
             bool engineFixed = false;
             string interaction = "none";
             bool hasScrews = false;
-            bool hasDrill = false;
             first.printSlow("(Items labeled in ALL CAPS can be interacted with. Try interacting with the screws by typing SCREWS.)", speed);
             while (engineFixed == false) {
                 interaction = first.prompt(stdPrompt);
@@ -87,7 +85,6 @@ int main() {
                             if (choice2 == "y") {
                                 first.printSlow("You place a screw into an opening, and attempt to spin it with your hand, which isn't working very well.", speed);
                                 first.printSlow("It's at this moment you remember you had a DRILL on hand this whole time.", speed);
-                                hasDrill = true;
                                 choicePicked = true;
                                 bool choseDrill = false;
                                 while (choseDrill == false) {
@@ -112,7 +109,6 @@ int main() {
                                 cout << "Invalid Input, try again" << endl;
                             }
                         }
-                                }
                     }
                 }
                 else {
@@ -146,18 +142,18 @@ int main() {
             first.printSlow("You turn your ship around to chase after Lyre. Once your ship is turned, you're met with Lyre's ship directly facing yours, with the laser guns charging up. ", speed);
             first.printSlow("You are caught off guard but quickly swerve your ship to the side, just narrowly avoiding the laser shots. ", speed);
             first.printSlow("Lyre: Dang it! I almost had ya!", speed);
-            int playerHealth = 100;
+            player.setPlayerHealth(100);
         }
         else if (choice1 == "2") {
             first.printSlow("You decide you've had enough of Lyre too and let him leave.", speed);
             first.printSlow("But then out of nowhere, the back of your ship is shot repeatedly by laser bullets, heavily damaging your shields.", speed);
             first.printSlow("Lyre: Haha! Take that you pathetic excuse of a captain!", speed);
-            int playerHealth = 50;
+            player.setPlayerHealth(50);
         }
         first.printSlow("Turns out Lyre's not just gonna leave you alone, he wants you dead!", speed);
         first.printSlow("You: What the heck! What's wrong with you?!", speed);
         first.printSlow("Lyre: Can't let you go back and rat me out to the boss now, can I?", speed);
-        battle();
+        battle.startBattle(player, lyre);
         first.printSlow("Your shields have suffered too much damage, your ship begins to break apart and fall into Wotrana's atmosphere. ", speed);
         first.printSlow("Lyre: Sorry captain, it's nothing personal. Oh wait, no it totally is, haha!", speed);
         first.printSlow("Lyre's ship flies down to Wotrana's surface. And yours does too, but... well, in a much more intense and violent manner.", speed);
@@ -166,24 +162,16 @@ int main() {
         first.printSlow("The last thing you see before everything goes dark is a tree slamming into your ship.", speed);
         first.dots(3, speed);
         first.printSlow("A few minutes later, you wake up. Miraculously, you're not dead! Just very very injured!", speed);
-        first.printSlow("poop", speed);
+
                                
 
-    }
-                }
-                else {
-                    cout << "That's not something you can interact with. Try Again" << endl;
-                }
-            }
-        }
 
-        cout << "Wow you made it!";
+    cout << "Wow you made it!" << endl;
 
+    // Continue into the main game. Remove this call if the story
+    // above is already run by GameManager::startGame().
+    GameManager game;
+    game.startGame();
 
-
-        GameManager game;
-
-        game.startGame();
-    }
-
-
+    return 0;
+}
