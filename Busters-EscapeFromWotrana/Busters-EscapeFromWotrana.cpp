@@ -169,7 +169,5 @@ int main() {
 
     cout << "Wow you made it!" << endl;
 
-    // Continue into the main game. Remove this call if the story
-    // above is already run by GameManager::startGame().
-   
+    return 0;
 }
