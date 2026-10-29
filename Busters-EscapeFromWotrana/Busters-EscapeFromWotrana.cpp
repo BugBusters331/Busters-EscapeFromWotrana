@@ -7,6 +7,9 @@
 #include <chrono>
 using namespace std;
 
+void battle() {
+    cout << "Put battle here" << endl;
+}
 
 int main(){
 
@@ -118,43 +121,54 @@ int main(){
                 }
             }
         }
-        first.pause(500, speed)
+        first.pause(500, speed);
         first.printSlow("You then receive a call on your comms panel.On the other end is your totally trustworthy and loyal recruit, Lyre, flying near you in his own ship, calling you to ask about the planet Wotrana.", speed);
         first.printSlow("Lyre: Yo Captain! Isn't that the planet with the super valuable crystals over there?", speed);
         first.printSlow("You: Yeah? What about it?", speed);
-        first.printSlow("Lyre: I hear those crystals are worth a fortune! Why don’t we ditch this silly mission and go treasure hunting?", speed);
+        first.printSlow("Lyre: I hear those crystals are worth a fortune! Why don't we ditch this silly mission and go treasure hunting?", speed);
         first.printSlow("How do you respond?", speed);
         first.printSlow("1: Yeah! You and I can be the richest people in the galaxy!", speed);
         first.printSlow("2: No, we need to focus on our job.", speed);
-        first.prompt("");
-        if (choice == "1") {
+        choice1 = first.prompt("");
+        if (choice1 == "1") {
             first.printSlow("Lyre: Heheh, right... you... *and* me...", speed);
         }
-        else if (choice == "2") {
-            first.printSlow("Lyre: Ugh, you’re such a buzzkill! Y’know what screw this! ", speed);
+        else if (choice1 == "2") {
+            first.printSlow("Lyre: Ugh, you're such a buzzkill! Y'know what screw this! ", speed);
         }
-        first.printSlow("Lyre’s ship slows down a little, and positions itself behind yours.", speed);
+        first.printSlow("Lyre's ship slows down a little, and positions itself behind yours.", speed);
         first.printSlow("You: Lyre, what are you doing?", speed);
-        first.printSlow("Lyre: I’m done following your dumb commands! I’ll just go get those crystals myself, and you can’t stand in my way!", speed);
+        first.printSlow("Lyre: I'm done following your dumb commands! I'll just go get those crystals myself, and you can't stand in my way!", speed);
         first.printSlow("What will you do?", speed);
         first.printSlow("1: Try to stop him", speed);
         first.printSlow("2: Let him go.", speed);
-        first.prompt("");
-        if (choice == "1") {
-            first.printSlow("You turn your ship around to chase after Lyre. Once your ship is turned, you’re met with Lyre’s ship directly facing yours, with the laser guns charging up. ", speed);
+        choice1 = first.prompt("");
+        if (choice1 == "1") {
+            first.printSlow("You turn your ship around to chase after Lyre. Once your ship is turned, you're met with Lyre's ship directly facing yours, with the laser guns charging up. ", speed);
             first.printSlow("You are caught off guard but quickly swerve your ship to the side, just narrowly avoiding the laser shots. ", speed);
             first.printSlow("Lyre: Dang it! I almost had ya!", speed);
             int playerHealth = 100;
         }
-        else if (choice == "2") {
-            first.printSlow("You decide you’ve had enough of Lyre too and let him leave.", speed);
+        else if (choice1 == "2") {
+            first.printSlow("You decide you've had enough of Lyre too and let him leave.", speed);
             first.printSlow("But then out of nowhere, the back of your ship is shot repeatedly by laser bullets, heavily damaging your shields.", speed);
             first.printSlow("Lyre: Haha! Take that you pathetic excuse of a captain!", speed);
             int playerHealth = 50;
         }
-        first.printSlow("Turns out Lyre’s not just gonna leave you alone, he wants you dead!", speed);
-        first.printSlow("You: What the heck! What’s wrong with you?!", speed);
-        first.printSlow("Lyre: Can’t let you go back and rat me out to the boss now, can I?", speed);
+        first.printSlow("Turns out Lyre's not just gonna leave you alone, he wants you dead!", speed);
+        first.printSlow("You: What the heck! What's wrong with you?!", speed);
+        first.printSlow("Lyre: Can't let you go back and rat me out to the boss now, can I?", speed);
+        battle();
+        first.printSlow("Your shields have suffered too much damage, your ship begins to break apart and fall into Wotrana's atmosphere. ", speed);
+        first.printSlow("Lyre: Sorry captain, it's nothing personal. Oh wait, no it totally is, haha!", speed);
+        first.printSlow("Lyre's ship flies down to Wotrana's surface. And yours does too, but... well, in a much more intense and violent manner.", speed);
+        first.printSlow("You quickly hit buttons on your ship's control panel, desperately trying to regain control of it or at least slow your descent, but it's too late, your control panel is totally busted.", speed);
+        first.printSlow("And it gets worse. The ship's wings have snapped off, the battery has fallen out, and fuel is leaking as you descend. So really all you can do is pray.", speed);
+        first.printSlow("The last thing you see before everything goes dark is a tree slamming into your ship.", speed);
+        first.dots(3, speed);
+        first.printSlow("A few minutes later, you wake up. Miraculously, you're not dead! Just very very injured!", speed);
+        first.printSlow("poop", speed);
+
 
 
 

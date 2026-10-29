@@ -19,7 +19,7 @@ int dialogue::speedChoice() {
             return 1;
         }
         else if (speed == "2") {
-            return 2;
+            return 3;
         }
         else if (speed == "3") {
             return 1000;
