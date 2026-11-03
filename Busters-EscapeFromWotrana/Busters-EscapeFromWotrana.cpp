@@ -125,12 +125,21 @@ int main() {
         first.printSlow("How do you respond?", speed);
         first.printSlow("1: Yeah! You and I can be the richest people in the galaxy!", speed);
         first.printSlow("2: No, we need to focus on our job.", speed);
-        choice1 = first.prompt("");
-        if (choice1 == "1") {
-            first.printSlow("Lyre: Heheh, right... you... *and* me...", speed);
-        }
-        else if (choice1 == "2") {
-            first.printSlow("Lyre: Ugh, you're such a buzzkill! Y'know what screw this! ", speed);
+        bool choicePicked = false;
+        while (choicePicked == false) {
+            choice1 = first.prompt("");
+            if (choice1 == "1") {
+                first.printSlow("Lyre: Heheh, right... you... *and* me...", speed);
+                choicePicked = true;
+            }
+            else if (choice1 == "2") {
+                first.printSlow("Lyre: Ugh, you're such a buzzkill! Y'know what screw this! ", speed);
+                choicePicked = true;
+            }
+            else
+            {
+                cout << "Invalid Input, try again" << endl;
+            }
         }
         first.printSlow("Lyre's ship slows down a little, and positions itself behind yours.", speed);
         first.printSlow("You: Lyre, what are you doing?", speed);
@@ -138,18 +147,27 @@ int main() {
         first.printSlow("What will you do?", speed);
         first.printSlow("1: Try to stop him", speed);
         first.printSlow("2: Let him go.", speed);
-        choice1 = first.prompt("");
-        if (choice1 == "1") {
-            first.printSlow("You turn your ship around to chase after Lyre. Once your ship is turned, you're met with Lyre's ship directly facing yours, with the laser guns charging up. ", speed);
-            first.printSlow("You are caught off guard but quickly swerve your ship to the side, just narrowly avoiding the laser shots. ", speed);
-            first.printSlow("Lyre: Dang it! I almost had ya!", speed);
-            player.setPlayerHealth(100);
-        }
-        else if (choice1 == "2") {
-            first.printSlow("You decide you've had enough of Lyre too and let him leave.", speed);
-            first.printSlow("But then out of nowhere, the back of your ship is shot repeatedly by laser bullets, heavily damaging your shields.", speed);
-            first.printSlow("Lyre: Haha! Take that you pathetic excuse of a captain!", speed);
-            player.setPlayerHealth(50);
+        bool choicePicked = false;
+        while (choicePicked == false) {
+            choice1 = first.prompt("");
+            if (choice1 == "1") {
+                first.printSlow("You turn your ship around to chase after Lyre. Once your ship is turned, you're met with Lyre's ship directly facing yours, with the laser guns charging up. ", speed);
+                first.printSlow("You are caught off guard but quickly swerve your ship to the side, just narrowly avoiding the laser shots. ", speed);
+                first.printSlow("Lyre: Dang it! I almost had ya!", speed);
+                player.setPlayerHealth(100);
+                choicePicked = true;
+            }
+            else if (choice1 == "2") {
+                first.printSlow("You decide you've had enough of Lyre too and let him leave.", speed);
+                first.printSlow("But then out of nowhere, the back of your ship is shot repeatedly by laser bullets, heavily damaging your shields.", speed);
+                first.printSlow("Lyre: Haha! Take that you pathetic excuse of a captain!", speed);
+                player.setPlayerHealth(50);
+                choicePicked = true;
+            }
+            else
+            {
+                cout << "Invalid Input, try again" << endl;
+            }
         }
         first.printSlow("Turns out Lyre's not just gonna leave you alone, he wants you dead!", speed);
         first.printSlow("You: What the heck! What's wrong with you?!", speed);
@@ -164,10 +182,6 @@ int main() {
         first.dots(3, speed);
         first.printSlow("A few minutes later, you wake up. Miraculously, you're not dead! Just very very injured!", speed);
 
-                               
-
-
-    cout << "Wow you made it!" << endl;
 
     return 0;
 }
