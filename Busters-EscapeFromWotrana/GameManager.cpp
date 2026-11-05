@@ -14,18 +14,19 @@ GameManager::GameManager() {
 
 // Start the game
 void GameManager::startGame() {
-    cout << "\n===== ESCAPE FROM WOTRANA =====\n";
 
-    // Display starting location
+    // Show starting location
     locationManager.displayCurrentLocation(true);
+
+    // Show where the player can go
+    locationManager.displayAvailableLocations();
 
     // Start game loop
     while (isRunning) {
         updateGame();
     }
 }
-
-// Handle player input
+//updates game status
 void GameManager::updateGame() {
     string command;
 
@@ -37,22 +38,22 @@ void GameManager::updateGame() {
         return;
     }
 
-    if (command == "forward") {
-        locationManager.moveForward();
-        locationManager.displayCurrentLocation(true);
-    }
-    else if (command == "back") {
-        locationManager.moveBackward();
-        locationManager.displayCurrentLocation(false);
+    if (command.substr(0, 5) == "goto ") {
+        string locationName = command.substr(5);
+
+        locationManager.goToLocation(locationName);
     }
     else if (command == "look") {
         locationManager.displayCurrentLocation(true);
+    }
+    else if (command == "locations") {
+        locationManager.displayAvailableLocations();
     }
     else if (command == "quit") {
         stopGame();
     }
     else {
-        cout << "Invalid command. Try forward, back, look, or quit.\n";
+        cout << "Invalid command.\n";
     }
 }
 
