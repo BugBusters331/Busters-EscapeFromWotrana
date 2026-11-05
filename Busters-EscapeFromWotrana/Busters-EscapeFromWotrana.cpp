@@ -15,6 +15,8 @@ BattleManager battle;
 dialogue first;
 float speed;
 string stdPrompt = "What will you do?";
+bool choicePicked = false;
+string choice1;
 
 void openingScene() {
     
@@ -31,8 +33,7 @@ void openingScene() {
     first.printSlow("Oh wait, that's not the stars. That's just the engine overheating again.", speed);
     first.pause(1000, speed);
     first.printSlow("Well, common sense says you should go handle that, but this is the third time this week that the engine's been acting up.", speed);
-    string choice1;
-    bool choicePicked = false;
+    choicePicked = false;
     while (choicePicked == false) {
         choice1 = first.prompt("Do you feel like fixing the engine? (yes/no)");
         if (choice1 == "y") {
@@ -171,16 +172,61 @@ void openingScene() {
     first.printSlow("You quickly hit buttons on your ship's control panel, desperately trying to regain control of it or at least slow your descent, but it's too late, your control panel is totally busted.", speed);
     first.printSlow("And it gets worse. The ship's wings have snapped off, the battery has fallen out, and fuel is leaking as you descend. So really all you can do is pray.", speed);
     first.printSlow("The last thing you see before everything goes dark is a tree slamming into your ship.", speed);
+    player.setPlayerHealth(100);
     first.dots(3, speed);
 }
 
 void firstCrash() {
+
     first.printSlow("A few minutes later, you wake up.", speed);
-    first.printSlow("Amazingly, you're not dead! ", speed);
+    first.printSlow("Amazingly, you're not dead!", speed);
     first.printSlow("You turn your head to the left and see a tree branch has stabbed through your chair, frighteningly close to your neck.", speed);
     first.printSlow("You also feel like you're being pulled upward by gravity. You look up and down and see the ground above you and the sky below you.", speed);
     first.printSlow("It seems you are hanging upside down, suspended only by the straps of your chair.", speed);
+    first.pause(500, speed);
     first.printSlow("You can unbuckle the STRAPS of your chair, but unless you grab onto a BRANCH you'd very quickly fall and get injured.", speed);
+    choicePicked = false;
+    bool holdBranch = false;
+    bool onTree = true;
+    while (choicePicked == false) {
+        choice1 = first.prompt(stdPrompt);
+        if (choice1 == "STRAPS") {
+            first.printSlow("The strap unbuckles and gravity releases you to your doom...", speed);
+            if (!holdBranch) {
+                first.printSlow("You smack into numerous tree branches on your way down, each one feels like it hurts more than the last.", speed);
+                first.printSlow("It's so bad that when you finally faceplant into the ground you're relieving.", speed);
+                first.pause(500, speed);
+                first.printSlow("You stumble your way up from the ground, severely injured.", speed);
+                first.printSlow("All you had to do was grab onto that branch.", speed);
+                first.printSlow("But now you've got bruises and scratches and splinters everywhere.", speed);
+                player.setPlayerHealth(1);
+                first.printSlow("You absolutely should be dead right now, but you've managed to scrape by with a measly 1 HP.", speed);
+                first.pause(500, speed);
+                first.printSlow("Just make sure you get a chance to heal ASAP.", speed);
+                first.pause(500, speed);
+                onTree = false;
+            }
+            else {
+                first.printSlow("But your grip on the branch is tight, and you're safe from falling.", speed);
+            }
+            choicePicked = true;
+        }
+        else if (choice1 == "BRANCH") {
+            if (!holdBranch) {
+                first.printSlow("You grab onto the branch, preparing yourself to not fall upon unbuckling the STRAPS.", speed);
+                holdBranch = true;
+            }
+            else {
+                first.printSlow("You're already holding onto the branch.", speed);
+                first.printSlow("Wouldn't want to let go now would you?", speed);
+            }
+            
+        }
+        else
+        {
+            cout << "That's not something you can interact with" << endl;
+        }
+    }
     first.printSlow(" ", speed);
     
 }
@@ -193,7 +239,6 @@ int main() {
     player.setPlayerDamage(12);
     player.setPlayerArmor(15);
     speed = first.speedChoice();
-    openingScene();
     firstCrash();
 
     return 0;
