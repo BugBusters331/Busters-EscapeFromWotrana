@@ -15,14 +15,14 @@ public:
     LocationManager(int index, const string& name, const string& description, const string& briefDescription)
         : currentLocationIndex(index), nameOfLocation(name), locationDescription(description), briefLocationDescription(briefDescription) {}
   
-    int getCurrentLocationIndex() const { return currentLocationIndex; }
-    string getNameOfLocation() const { return nameOfLocation; }
-    string getLocationDescription() const { return locationDescription; }
-    string getBriefLocationDescription() const { return briefLocationDescription; }
+    int getCurrentLocationIndex();
+    string getNameOfLocation();
+    string getLocationDescription();
+    string getBriefLocationDescription();
 
-    void setCurrentLocationIndex(int index) { currentLocationIndex = index; }
-    void setNameOfLocation(const string& name) { nameOfLocation = name; }
-    void setLocationDescription(const string& description) { locationDescription = description; }
-    void setBriefLocationDescription(const string& briefDescription) { briefLocationDescription = briefDescription; }
+    void setCurrentLocationIndex(int index);
+    void setNameOfLocation(const string& name);
+    void setLocationDescription(const string& description);
+    void setBriefLocationDescription(const string& briefDescription);
 };
 
