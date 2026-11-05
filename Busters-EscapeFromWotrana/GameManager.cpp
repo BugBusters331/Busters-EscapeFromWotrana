@@ -1,71 +1,62 @@
+
 #include "GameManager.h"
 #include "Player.h"
 #include "Chunks.h"
 #include <iostream>
-#include <conio.h>
+#include <string>
 
 using namespace std;
 
-GameManager::GameManager(){
-	isRunning = true;
+// Constructor
+GameManager::GameManager() {
+    isRunning = true;
 }
 
+// Start the game
 void GameManager::startGame() {
-	while (isRunning) {
-		drawGame();
-		handleInput();
-		updateGame();
-	}
+    cout << "\n===== ESCAPE FROM WOTRANA =====\n";
+
+    // Display starting location
+    locationManager.displayCurrentLocation(true);
+
+    // Start game loop
+    while (isRunning) {
+        updateGame();
+    }
 }
 
-void GameManager::handleInput() {
-	int key = _getch();
+// Handle player input
+void GameManager::updateGame() {
+    string command;
 
-	int newX = player.getPlayerX();
-	int newY = player.getPlayerY();
+    cout << "\nWhat will you do? ";
+    getline(cin, command);
 
-	if (key == 0 || key == 224) {
-		key = _getch(); // Handle arrow keys
+    if (!cin) {
+        stopGame();
+        return;
+    }
 
-		if (key == 72) { // Up arrow
-			newY--;
-		}
-		else if (key == 80) { // Down arrow
-			newY++;
-		}
-		else if (key == 75) { // Left arrow
-			newX--;
-		}
-		else if (key == 77) { // Right arrow
-			newX++;
-		}
-	}
-
-	attemptMove(newX, newY);
+    if (command == "forward") {
+        locationManager.moveForward();
+        locationManager.displayCurrentLocation(true);
+    }
+    else if (command == "back") {
+        locationManager.moveBackward();
+        locationManager.displayCurrentLocation(false);
+    }
+    else if (command == "look") {
+        locationManager.displayCurrentLocation(true);
+    }
+    else if (command == "quit") {
+        stopGame();
+    }
+    else {
+        cout << "Invalid command. Try forward, back, look, or quit.\n";
+    }
 }
 
-void GameManager::attemptMove(int newX, int newY) {
-	if (currentChunk.isWalkable(newX, newY)) {
-		player.setPlayerPosition(newX, newY);
-	}
-}
-
-void GameManager::updateGame(){
-	if (currentChunk.isExit(player.getPlayerX(), player.getPlayerY()))
-	{
-		changeChunk();
-	}
-}
-
-void GameManager::drawGame() {
-	system("cls"); // Clear the console
-	currentChunk.drawChunks(player.getPlayerX(), player.getPlayerY());
-}
-
-void GameManager::changeChunk() {
-	// add chunk switching later
-}
-
+// Stop the game
 void GameManager::stopGame() {
-	isRunning = false;
+    isRunning = false;
 }

@@ -1,28 +1,46 @@
+
 #pragma once
 
 #include <string>
 #include <vector>
 #include <iostream>
+
 using namespace std;
 
-class LocationManager{
-private:
-    int currentLocationIndex;
+// Stores information for each location
+struct Location {
     string nameOfLocation;
     string locationDescription;
     string briefLocationDescription;
+};
+
+class LocationManager {
+private:
+    vector<Location> locations;
+    int currentLocationIndex;
+
 public:
-    LocationManager(int index, const string& name, const string& description, const string& briefDescription)
-        : currentLocationIndex(index), nameOfLocation(name), locationDescription(description), briefLocationDescription(briefDescription) {}
-  
+    LocationManager();
+
+    // Initialize locations
+    void initializeLocations();
+
+    // Movement
+    void displayAvailableLocations();
+    void goToLocation(const string& locationName);
+
+    // Display descriptions
+    void displayCurrentLocation(bool fullDescription);
+
+    // Getters
     int getCurrentLocationIndex();
     string getNameOfLocation();
     string getLocationDescription();
     string getBriefLocationDescription();
 
+    // Setters
     void setCurrentLocationIndex(int index);
     void setNameOfLocation(const string& name);
     void setLocationDescription(const string& description);
     void setBriefLocationDescription(const string& briefDescription);
 };
-
