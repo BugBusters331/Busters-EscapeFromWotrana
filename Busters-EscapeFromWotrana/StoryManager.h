@@ -1,16 +1,12 @@
-
 #pragma once
-
 #include <string>
 #include <thread>
 #include <chrono>
 #include "Player.h"
-
 #include "BattleManager.h"
-
 using namespace std;
 
-// Handles dialogue and text output
+// Keep dialogue method implementations in your existing StoryManager.cpp.
 class dialogue {
 public:
     int speedChoice();
@@ -22,23 +18,24 @@ public:
     string pars(string text);
 };
 
-// Handles story progression
 class StoryManager {
 private:
     Player& player;
     Enemy lyre;
     BattleManager battle;
     dialogue first;
-
     int speed = 0;
     string stdPrompt = "What will you do?";
     bool choicePicked = false;
     string choice1;
 
-public:
-    StoryManager(Player& player);
-
-    void startStory();
-    void openingScene();
+    void introDialogue();
+    void engineRepair();
+    void lyreIntro();
+    void lyreBattleEnd();
     void firstCrash();
+    void openingScene();
+public:
+    explicit StoryManager(Player& player);
+    void startStory();
 };

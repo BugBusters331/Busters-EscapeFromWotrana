@@ -1,10 +1,11 @@
-#include "StoryManager.h"#include "StoryManager.h"
+#include "StoryManager.h"
 #include <iostream>
-
 using namespace std;
 
+// Add this file to your C++ project.
+// Keep your existing StoryManager.cpp for dialogue method definitions.
 StoryManager::StoryManager(Player& player)
-    : player(player), lyre("Lyre", 100, 12, 10) {}
+    : player(player), lyre("Lyre", 100, 12, 15) {}
 
 void StoryManager::startStory() {
     player.setPlayerName("Captain");
@@ -16,8 +17,7 @@ void StoryManager::startStory() {
     firstCrash();
 }
 
-void StoryManager::openingScene() {
-    
+void StoryManager::introDialogue() {
     first.printSlow("It's been a long day of traveling through space, hasn't it?", speed);
     first.printSlow("Your ship's practically out of fuel, gonna have to take care of that soon.", speed);
     first.printSlow("And these missions aren't getting any easier either.", speed);
@@ -48,67 +48,74 @@ void StoryManager::openingScene() {
         }
     }
     if (choice1 == "y") {
-        first.printSlow("You take a look at the ENGINE. It appears to be missing a couple of screws.", speed);
-        first.printSlow("You then look down and see the SCREWS laying on the floor.", speed);
-        bool engineFixed = false;
-        string interaction = "none";
-        bool hasScrews = false;
-        first.printSlow("(Items labeled in ALL CAPS can be interacted with. Try interacting with the screws by typing SCREWS.)", speed);
-        while (engineFixed == false) {
-            interaction = first.prompt(stdPrompt);
-            if (interaction == "SCREWS") {
-                if (!hasScrews) {
-                    first.printSlow("You pick up the screws. Now you can place them in the ENGINE by interacting with it.", speed);
-                    hasScrews = true;
-                }
-                else {
-                    first.printSlow("You have the screws in your hand. You can place them in the ENGINE by interacting with it.", speed);
-                }
+        engineRepair();
+    }
+    first.pause(500, speed);
+}
+
+void StoryManager::engineRepair() {
+    first.printSlow("You take a look at the ENGINE. It appears to be missing a couple of screws.", speed);
+    first.printSlow("You then look down and see the SCREWS laying on the floor.", speed);
+    bool engineFixed = false;
+    string interaction = "none";
+    bool hasScrews = false;
+    first.printSlow("(Items labeled in ALL CAPS can be interacted with. Try interacting with the screws by typing SCREWS.)", speed);
+    while (engineFixed == false) {
+        interaction = first.prompt(stdPrompt);
+        if (interaction == "SCREWS") {
+            if (!hasScrews) {
+                first.printSlow("You pick up the screws. Now you can place them in the ENGINE by interacting with it.", speed);
+                hasScrews = true;
             }
-            else if (interaction == "ENGINE") {
-                if (!hasScrews) {
-                    first.printSlow("Yup. That's the engine. But you don't have the screws to put in yet, they're on the floor.", speed);
-                }
-                else {
-                    first.printSlow("The engine is missing some screws, which you're holding in your hand.", speed);
-                    choicePicked = false;
-                    while (choicePicked == false) {
-                        string choice2 = first.prompt("Do you wish to put the screws back in their spots? (yes/no)");
-                        if (choice2 == "y") {
-                            first.printSlow("You place a screw into an opening, and attempt to spin it with your hand, which isn't working very well.", speed);
-                            first.printSlow("It's at this moment you remember you had a DRILL on hand this whole time.", speed);
-                            choicePicked = true;
-                            bool choseDrill = false;
-                            while (choseDrill == false) {
-                                string choice3 = first.prompt(stdPrompt);
-                                if (choice3 == "DRILL") {
-                                    choseDrill = true;
-                                }
-                                else {
-                                    first.printSlow("Just type DRILL it's not that hard", speed);
-                                }
+            else {
+                first.printSlow("You have the screws in your hand. You can place them in the ENGINE by interacting with it.", speed);
+            }
+        }
+        else if (interaction == "ENGINE") {
+            if (!hasScrews) {
+                first.printSlow("Yup. That's the engine. But you don't have the screws to put in yet, they're on the floor.", speed);
+            }
+            else {
+                first.printSlow("The engine is missing some screws, which you're holding in your hand.", speed);
+                choicePicked = false;
+                while (choicePicked == false) {
+                    string choice2 = first.prompt("Do you wish to put the screws back in their spots? (yes/no)");
+                    if (choice2 == "y") {
+                        first.printSlow("You place a screw into an opening, and attempt to spin it with your hand, which isn't working very well.", speed);
+                        first.printSlow("It's at this moment you remember you had a DRILL on hand this whole time.", speed);
+                        choicePicked = true;
+                        bool choseDrill = false;
+                        while (choseDrill == false) {
+                            string choice3 = first.prompt(stdPrompt);
+                            if (choice3 == "DRILL") {
+                                choseDrill = true;
                             }
-                            first.printSlow("You smack your head with your hand, wondering why you didn't just use the drill to begin with, then drill the screws into place.", speed);
-                            engineFixed = true;
-                            first.printSlow("The engine starts to stabilize and cool down. You wipe a bit of sweat off your head, then return to the cockpit.", speed);
+                            else {
+                                first.printSlow("Just type DRILL it's not that hard", speed);
+                            }
                         }
-                        else if (choice2 == "n") {
-                            first.printSlow("Odd choice but okay.", speed);
-                            choicePicked = true;
-                        }
-                        else
-                        {
-                            cout << "Invalid Input, try again" << endl;
-                        }
+                        first.printSlow("You smack your head with your hand, wondering why you didn't just use the drill to begin with, then drill the screws into place.", speed);
+                        engineFixed = true;
+                        first.printSlow("The engine starts to stabilize and cool down. You wipe a bit of sweat off your head, then return to the cockpit.", speed);
+                    }
+                    else if (choice2 == "n") {
+                        first.printSlow("Odd choice but okay.", speed);
+                        choicePicked = true;
+                    }
+                    else
+                    {
+                        cout << "Invalid Input, try again" << endl;
                     }
                 }
             }
-            else {
-                cout << "That's not something you can interact with. Try Again" << endl;
-            }
+        }
+        else {
+            cout << "That's not something you can interact with. Try Again" << endl;
         }
     }
-    first.pause(500, speed);
+}
+
+void StoryManager::lyreIntro() {
     first.printSlow("You then receive a call on your comms panel.On the other end is your totally trustworthy and loyal recruit, Lyre, flying near you in his own ship, calling you to ask about the planet Wotrana.", speed);
     first.printSlow("Lyre: Yo Captain! Isn't that the planet with the super valuable crystals over there?", speed);
     first.printSlow("You: Yeah? What about it?", speed);
@@ -164,7 +171,11 @@ void StoryManager::openingScene() {
     first.printSlow("You: What the heck! What's wrong with you?!", speed);
     first.printSlow("Lyre: Can't let you go back and rat me out to the boss now, can I?", speed);
     battle.startBattle(player, lyre);
-    battle.runBattle(); // Remove only if startBattle() already runs the whole fight.
+    battle.runBattle();
+}
+
+
+void StoryManager::lyreBattleEnd() {
     first.printSlow("Your shields have suffered too much damage, your ship begins to break apart and fall into Wotrana's atmosphere. ", speed);
     first.printSlow("Lyre: Sorry captain, it's nothing personal. Oh wait, no it totally is, haha!", speed);
     first.printSlow("Lyre's ship flies down to Wotrana's surface. And yours does too, but... well, in a much more intense and violent manner.", speed);
@@ -173,6 +184,12 @@ void StoryManager::openingScene() {
     first.printSlow("The last thing you see before everything goes dark is a tree slamming into your ship.", speed);
     player.setPlayerHealth(100);
     first.dots(3, speed);
+}
+
+void StoryManager::openingScene() {
+    introDialogue();
+    lyreIntro();
+    lyreBattleEnd();
 }
 
 void StoryManager::firstCrash() {
@@ -229,113 +246,3 @@ void StoryManager::firstCrash() {
     first.printSlow(" ", speed);
     
 }
-
-#include "Player.h"
-#include <iostream>
-#include <string>
-#include <thread>
-#include <chrono>
-
-
-using namespace std;
-
-
-StoryManager::StoryManager(Player& player)
-    : player(player),
-      lyre("Lyre", 100, 12, 10) {
-}
-
-void StoryManager::startStory() {
-    // Set up player
-    player.setPlayerName("Captain");
-    player.setPlayerHealth(100);
-    player.setPlayerDamage(12);
-    player.setPlayerArmor(15);
-
-    // Choose text speed
-    speed = first.speedChoice();
-
-    // Play opening and crash
-    openingScene();
-    firstCrash();
-}
-
-// Dialogue class implementation
-
-int dialogue::speedChoice() {
-    string sampleLine = "Text can appear slowly (like it's doing now) to add to the experience.";
-    printSlow(sampleLine, 1);
-    string ask = "Press 1 for normal text, press 2 for fast text, press 3 for instant text";
-    bool speedChosen = false;
-    while (!speedChosen) {
-        string speed = prompt(ask);
-        if (speed == "1") {
-            return 1;
-        }
-        else if (speed == "2") {
-            return 3;
-        }
-        else if (speed == "3") {
-            return 1000;
-        }
-        else {
-            cout << "Invalid input. ";
-        }
-    }
-
-}
-
-void dialogue::print( string text) {
-    cout << text;
-    cout << endl;
-}
-
-void dialogue::printSlow(string text, int speed) {
-    auto tp = chrono::steady_clock::now();
-    for (char letter : text) {
-        cout << letter << std::flush;
-        tp += std::chrono::milliseconds(50 / speed);
-        std::this_thread::sleep_until(tp);
-    }
-    tp += std::chrono::milliseconds(500 / speed);
-    std::this_thread::sleep_until(tp);
-    cout << endl;
-}
-
-void dialogue::pause(int pauseTime, int speed) {
-    auto tp = chrono::steady_clock::now();
-    tp += std::chrono::milliseconds(pauseTime / speed);
-    std::this_thread::sleep_until(tp);
-}
-
-void dialogue::dots(int dots, int speed) {
-    auto tp = chrono::steady_clock::now();
-    for (int i = 0; i < dots; i++) {
-        cout << ". " << std::flush;
-        tp += std::chrono::milliseconds(500 / speed);
-        std::this_thread::sleep_until(tp);
-    }
-    tp += std::chrono::milliseconds(500 / speed);
-    std::this_thread::sleep_until(tp);
-    cout << endl;
-}
-
-string dialogue::prompt( string text) {
-    cout << text << endl;
-    string choice;
-    cin >> choice;
-    string parsOut = pars(choice);
-    return parsOut;
-}
-
-string dialogue::pars(string text) {
-    if (text == "y" || text == "yes" || text == "Y" || text == "YES") {
-        text = "y";
-    }
-    if (text == "n" || text == "no" || text == "N" || text == "NO") {
-        text = "n";
-    }
-    return text;
-}
-
-	
