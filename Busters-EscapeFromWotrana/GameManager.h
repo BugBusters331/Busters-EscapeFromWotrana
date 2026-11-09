@@ -2,10 +2,13 @@
 #include "Player.h"
 #include "Chunks.h"
 #include "LocationManager.h"
+#include "MainMenu.h"
+#include <limits>
 
 
 class GameManager{
 private:
+	MainMenu mainMenu;
 	Player player;
 	LocationManager locationManager;
 	Chunks currentChunk;

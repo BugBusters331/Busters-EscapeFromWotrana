@@ -1,5 +1,5 @@
 #pragma once
-class mainMenu
+class MainMenu
 {
 	public:
 		void displayMenu();

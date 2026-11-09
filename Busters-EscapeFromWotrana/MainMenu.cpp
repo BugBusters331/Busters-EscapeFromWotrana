@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void mainMenu::displayMenu()
+void MainMenu::displayMenu()
 {
 	cout << "*----------------------------------------------*" << endl;
 	cout << "|          Bug Busters Studios Presents:       |" << endl;
@@ -17,7 +17,7 @@ void mainMenu::displayMenu()
 
 }
 
-int mainMenu::getuserChoice()
+int MainMenu::getuserChoice()
 {
 	cout << "Enter your choice: ";
 	cin >> userChoice;
@@ -25,7 +25,7 @@ int mainMenu::getuserChoice()
 	return userChoice;
 }
 
-void mainMenu::displayUserManual() {
+void MainMenu::displayUserManual() {
 	cout << "*----------------------------------------------*" << endl;
 	cout << "|******************USER MANUAL*****************|" << endl;
 	cout << "| Escape from Wotrana is a text-based adventure|" << endl;
