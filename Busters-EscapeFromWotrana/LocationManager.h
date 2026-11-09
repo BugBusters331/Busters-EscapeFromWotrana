@@ -12,6 +12,14 @@ struct Location {
     string nameOfLocation;
     string locationDescription;
     string briefLocationDescription;
+
+    string npcDialogue;
+    string firstVisitScene;
+
+    bool hasVisited = false;
+
+    // Stores indices of connected locations
+    vector<int> connectedLocations;
 };
 
 class LocationManager {

@@ -10,60 +10,119 @@ LocationManager::LocationManager() {
     initializeLocations();
 }
 
-// Add all locations
+// Initialize all locations
 void LocationManager::initializeLocations() {
     locations.clear();
 
+    // 0 - Ship
+    locations.push_back({
+        "Ship",
+        "You enter your damaged spaceship.",
+        "You return to your ship.",
+        "", "", false,
+        {1}
+    });
+
+    // 1 - Crash Site
     locations.push_back({
         "Crash Site",
         "You are standing next to your broken spaceship.",
-        "You are back at the Crash Site."
+        "You are back at the Crash Site.",
+        "", "", false,
+        {0, 2}
     });
 
+    // 2 - Forest
     locations.push_back({
         "Forest",
-        "You enter a forest filled with trees.",
-        "You are back in the Forest."
+        "You enter a dense forest filled with trees.",
+        "You are back in the Forest.",
+        "", "", false,
+        {1, 3, 4, 6}
     });
 
+    // 3 - City Entrance
     locations.push_back({
         "City Entrance",
         "You arrive at the entrance of a city.",
-        "You are back at the City Entrance."
+        "You return to the City Entrance.",
+        "", "", false,
+        {2}
     });
 
-    currentLocationIndex = 0;
+    // 4 - Plains
+    locations.push_back({
+        "Plains",
+        "You enter a wide open field.",
+        "You return to the Plains.",
+        "", "", false,
+        {2, 5}
+    });
+
+    // 5 - Desert
+    locations.push_back({
+        "Desert",
+        "You enter a hot, dry desert.",
+        "You return to the Desert.",
+        "", "", false,
+        {4}
+    });
+
+    // 6 - River
+    locations.push_back({
+        "River",
+        "You arrive at a flowing river.",
+        "You return to the River.",
+        "", "", false,
+        {2, 7, 8}
+    });
+
+    // 7 - Lake
+    locations.push_back({
+        "Lake",
+        "You arrive at a quiet lake.",
+        "You return to the Lake.",
+        "", "", false,
+        {6}
+    });
+
+    // 8 - Mountain
+    locations.push_back({
+        "Mountain",
+        "You approach a tall mountain.",
+        "You return to the Mountain.",
+        "", "", false,
+        {6}
+    });
+
+    // Start at Crash Site
+    currentLocationIndex = 1;
 }
 
-// Display available locations
+// Display connected locations
 void LocationManager::displayAvailableLocations() {
     cout << "\nAvailable Locations:\n";
 
-    if (currentLocationIndex > 0) {
-        cout << "- " << locations[currentLocationIndex - 1].nameOfLocation << endl;
-    }
-
-    if (currentLocationIndex + 1 < static_cast<int>(locations.size())) {
-        cout << "- " << locations[currentLocationIndex + 1].nameOfLocation << endl;
+    for (int index : locations[currentLocationIndex].connectedLocations) {
+        cout << "- " << locations[index].nameOfLocation << endl;
     }
 }
 
-// Move to a connected location by name
+// Move to a location by name
 void LocationManager::goToLocation(const string& locationName) {
     int newIndex = -1;
 
-    // Convert player input to lowercase
+    // Convert input to lowercase
     string targetName = locationName;
 
     for (char& c : targetName) {
         c = static_cast<char>(tolower(static_cast<unsigned char>(c)));
     }
 
-    // Search for the location
+    // Search for matching location
     for (int i = 0; i < static_cast<int>(locations.size()); i++) {
         string name = locations[i].nameOfLocation;
 
-        // Convert stored location name to lowercase
         for (char& c : name) {
             c = static_cast<char>(tolower(static_cast<unsigned char>(c)));
         }
@@ -74,27 +133,41 @@ void LocationManager::goToLocation(const string& locationName) {
         }
     }
 
-    // Location does not exist
     if (newIndex == -1) {
         cout << "Location not found.\n";
         return;
     }
 
-    // Check if location is connected
-    if (newIndex == currentLocationIndex - 1 ||
-        newIndex == currentLocationIndex + 1) {
+    // Check connected locations
+    bool canTravel = false;
 
-        currentLocationIndex = newIndex;
-
-        displayCurrentLocation(true);
-        displayAvailableLocations();
+    for (int index : locations[currentLocationIndex].connectedLocations) {
+        if (index == newIndex) {
+            canTravel = true;
+            break;
+        }
     }
-    else {
+
+    if (!canTravel) {
         cout << "You cannot travel to that location from here.\n";
+        return;
     }
+
+    // Move to new location
+    currentLocationIndex = newIndex;
+
+    // Show full description on first visit,
+    // brief description when returning
+    bool firstVisit = !locations[currentLocationIndex].hasVisited;
+
+    displayCurrentLocation(firstVisit);
+
+    locations[currentLocationIndex].hasVisited = true;
+
+    displayAvailableLocations();
 }
 
-// Display current location
+// Display location information
 void LocationManager::displayCurrentLocation(bool fullDescription) {
     if (locations.empty()) {
         cout << "No locations available.\n";
