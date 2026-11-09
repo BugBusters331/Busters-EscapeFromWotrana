@@ -1,80 +1,71 @@
-
 #include "GameManager.h"
 #include <iostream>
 #include <string>
+#include <limits>
 #include <cctype>
 
 using namespace std;
 
-// Constructor
-GameManager::GameManager() {
-    isRunning = true;
-}
+GameManager::GameManager() : storyManager(player), isRunning(true) {}
 
-// Start the game
 void GameManager::startGame() {
-
-    // Show starting location
-    locationManager.displayCurrentLocation(true);
-
-    // Show available locations
-    locationManager.displayAvailableLocations();
-
-    // Start game loop
-    while (isRunning) {
-        updateGame();
+    bool gameStarted = false;
+    while (isRunning && !gameStarted) {
+        menu.displayMenu();
+        int choice = menu.getuserChoice();
+        if (!cin) {
+            if (cin.eof()) { stopGame(); return; }
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid choice. Enter 1, 2, or 3.\n";
+            continue;
+        }
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        if (choice == 1) {
+            gameStarted = true;
+        } else if (choice == 2) {
+            menu.displayUserManual();
+            string input;
+            getline(cin, input); // Enter returns to menu
+            if (!cin) { stopGame(); return; }
+        } else if (choice == 3) {
+            stopGame();
+            return;
+        } else {
+            cout << "Invalid choice. Enter 1, 2, or 3.\n";
+        }
     }
+    if (!gameStarted) return;
+
+    storyManager.startStory();
+    locationManager.displayCurrentLocation(true);
+    locationManager.displayAvailableLocations();
+    while (isRunning) updateGame();
 }
 
-// Update game and handle player commands
 void GameManager::updateGame() {
     string command;
-
     cout << "\nWhat will you do? ";
     getline(cin, command);
+    if (!cin) { stopGame(); return; }
 
-    if (!cin) {
-        stopGame();
-        return;
-    }
+    for (char& c : command)
+        c = static_cast<char>(tolower(static_cast<unsigned char>(c)));
 
-    // Convert command to lowercase
-    for (char& c : command) {
-        c = static_cast<char>(
-            tolower(static_cast<unsigned char>(c))
-        );
-    }
-
-    // Move to a location
-    if (command.substr(0, 5) == "goto ") {
-        string locationName = command.substr(5);
-
-        locationManager.goToLocation(locationName);
-    }
-
-    // Look around current location
-    else if (command == "look") {
+    if (command.rfind("goto ", 0) == 0) {
+        locationManager.goToLocation(command.substr(5));
+    } else if (command == "look") {
         locationManager.displayCurrentLocation(true);
-    }
-
-    // Show available locations
-    else if (command == "locations") {
+    } else if (command == "locations") {
         locationManager.displayAvailableLocations();
-    }
-
-    // Quit game
-    else if (command == "quit") {
+    } else if (command == "quit") {
         stopGame();
-    }
-
-    // Invalid command
-    else {
-        cout << "Invalid command.\n";
-        cout << "Commands: goto [location], look, locations, quit\n";
+    } else {
+        cout << "Invalid command. Use goto [location], look, locations, or quit.\n";
     }
 }
 
-// Stop the game
-void GameManager::stopGame() {
-    isRunning = false;
-}
+void GameManager::stopGame() { isRunning = false; }
+
+// drawGame(), attemptMove(), changeChunk() are still only declarations.
+

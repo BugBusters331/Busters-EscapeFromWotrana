@@ -5,7 +5,7 @@
 #include <thread>
 #include <chrono>
 #include "Player.h"
-#include "Enemy.h"
+
 #include "BattleManager.h"
 
 using namespace std;

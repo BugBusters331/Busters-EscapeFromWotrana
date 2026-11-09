@@ -2,34 +2,23 @@
 #include "Player.h"
 #include "Chunks.h"
 #include "LocationManager.h"
+#include "StoryManager.h"
 #include "MainMenu.h"
-#include <limits>
 
-
-class GameManager{
+class GameManager {
 private:
-	MainMenu mainMenu;
-	Player player;
-	LocationManager locationManager;
-	Chunks currentChunk;
-
-	bool isRunning;
-
+    Player player;
+    StoryManager storyManager;
+    LocationManager locationManager;
+    MainMenu menu;
+    Chunks currentChunk;
+    bool isRunning;
 public:
-	GameManager();
-	void startGame();
-	void updateGame();
-	void drawGame();
-
-	void attemptMove(int newX, int newY);
-	void changeChunk();
-	void stopGame();
-	
-// locations Manager Implentation
-	void initializeLocations();
-	void moveForward();
-	void moveBackward();
-	void displayCurrentLocation();
-
+    GameManager();
+    void startGame();
+    void updateGame();
+    void drawGame();
+    void attemptMove(int newX, int newY);
+    void changeChunk();
+    void stopGame();
 };
-
