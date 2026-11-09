@@ -3,11 +3,17 @@
 using namespace std;
 
 Player::Player() {
-	playerX = 1;
-	playerY = 1;
+	playerName = "Player";
 	playerHealth = 20;
 	playerDamage = 3;
 	playerArmor = 5;
+}
+
+Player::Player(string name, int health, int armor, int damage) {
+	playerName = name;
+	playerHealth = health;
+	playerArmor = armor;
+	playerDamage = damage;
 }
 
 void Player::setPlayerName(string name) {

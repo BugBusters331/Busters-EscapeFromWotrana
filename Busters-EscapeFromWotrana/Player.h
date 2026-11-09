@@ -14,7 +14,7 @@ private:
 	int playerArmor;
 public:
 	Player();
-	//Player(string name, int x, int y, int health);
+	Player(string name, int health, int armor, int damage);
 	void setPlayerName(string name);
 	string getPlayerName();
 

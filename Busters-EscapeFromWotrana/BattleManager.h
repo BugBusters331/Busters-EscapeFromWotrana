@@ -1,8 +1,9 @@
 #pragma once
 
+#include <string>
 #include "Player.h"
-#include "random"
-//#include "Enemy.h"
+
+using namespace std;
 
 class Enemy {
 private:
@@ -35,6 +36,7 @@ private:
     Player* player;
     Enemy* enemy;
     bool battleActive;
+
 public:
     BattleManager();
 
@@ -46,6 +48,5 @@ public:
 
     int rollD20();
     int playerAttack();
-
     int enemyAttack();
 };
