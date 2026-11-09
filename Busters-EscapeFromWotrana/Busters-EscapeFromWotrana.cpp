@@ -10,16 +10,22 @@ using namespace std;
 
 //Global Variables
 Player player;
-Enemy lyre("Lyre", 100, 12, 10);
+Enemy lyre("Lyre", 100, 12, 15);
 BattleManager battle;
 dialogue first;
 float speed;
 string stdPrompt = "What will you do?";
 bool choicePicked = false;
 string choice1;
+void introDialogue();
+void engineRepair();
+void lyreIntro();
+void lyreBattleEnd();
+void firstCrash();
+void openingScene();
 
-void openingScene() {
-    
+
+void introDialogue() {
     first.printSlow("It's been a long day of traveling through space, hasn't it?", speed);
     first.printSlow("Your ship's practically out of fuel, gonna have to take care of that soon.", speed);
     first.printSlow("And these missions aren't getting any easier either.", speed);
@@ -50,67 +56,74 @@ void openingScene() {
         }
     }
     if (choice1 == "y") {
-        first.printSlow("You take a look at the ENGINE. It appears to be missing a couple of screws.", speed);
-        first.printSlow("You then look down and see the SCREWS laying on the floor.", speed);
-        bool engineFixed = false;
-        string interaction = "none";
-        bool hasScrews = false;
-        first.printSlow("(Items labeled in ALL CAPS can be interacted with. Try interacting with the screws by typing SCREWS.)", speed);
-        while (engineFixed == false) {
-            interaction = first.prompt(stdPrompt);
-            if (interaction == "SCREWS") {
-                if (!hasScrews) {
-                    first.printSlow("You pick up the screws. Now you can place them in the ENGINE by interacting with it.", speed);
-                    hasScrews = true;
-                }
-                else {
-                    first.printSlow("You have the screws in your hand. You can place them in the ENGINE by interacting with it.", speed);
-                }
+        engineRepair();
+    }
+    first.pause(500, speed);
+}
+
+void engineRepair() {
+    first.printSlow("You take a look at the ENGINE. It appears to be missing a couple of screws.", speed);
+    first.printSlow("You then look down and see the SCREWS laying on the floor.", speed);
+    bool engineFixed = false;
+    string interaction = "none";
+    bool hasScrews = false;
+    first.printSlow("(Items labeled in ALL CAPS can be interacted with. Try interacting with the screws by typing SCREWS.)", speed);
+    while (engineFixed == false) {
+        interaction = first.prompt(stdPrompt);
+        if (interaction == "SCREWS") {
+            if (!hasScrews) {
+                first.printSlow("You pick up the screws. Now you can place them in the ENGINE by interacting with it.", speed);
+                hasScrews = true;
             }
-            else if (interaction == "ENGINE") {
-                if (!hasScrews) {
-                    first.printSlow("Yup. That's the engine. But you don't have the screws to put in yet, they're on the floor.", speed);
-                }
-                else {
-                    first.printSlow("The engine is missing some screws, which you're holding in your hand.", speed);
-                    choicePicked = false;
-                    while (choicePicked == false) {
-                        string choice2 = first.prompt("Do you wish to put the screws back in their spots? (yes/no)");
-                        if (choice2 == "y") {
-                            first.printSlow("You place a screw into an opening, and attempt to spin it with your hand, which isn't working very well.", speed);
-                            first.printSlow("It's at this moment you remember you had a DRILL on hand this whole time.", speed);
-                            choicePicked = true;
-                            bool choseDrill = false;
-                            while (choseDrill == false) {
-                                string choice3 = first.prompt(stdPrompt);
-                                if (choice3 == "DRILL") {
-                                    choseDrill = true;
-                                }
-                                else {
-                                    first.printSlow("Just type DRILL it's not that hard", speed);
-                                }
+            else {
+                first.printSlow("You have the screws in your hand. You can place them in the ENGINE by interacting with it.", speed);
+            }
+        }
+        else if (interaction == "ENGINE") {
+            if (!hasScrews) {
+                first.printSlow("Yup. That's the engine. But you don't have the screws to put in yet, they're on the floor.", speed);
+            }
+            else {
+                first.printSlow("The engine is missing some screws, which you're holding in your hand.", speed);
+                choicePicked = false;
+                while (choicePicked == false) {
+                    string choice2 = first.prompt("Do you wish to put the screws back in their spots? (yes/no)");
+                    if (choice2 == "y") {
+                        first.printSlow("You place a screw into an opening, and attempt to spin it with your hand, which isn't working very well.", speed);
+                        first.printSlow("It's at this moment you remember you had a DRILL on hand this whole time.", speed);
+                        choicePicked = true;
+                        bool choseDrill = false;
+                        while (choseDrill == false) {
+                            string choice3 = first.prompt(stdPrompt);
+                            if (choice3 == "DRILL") {
+                                choseDrill = true;
                             }
-                            first.printSlow("You smack your head with your hand, wondering why you didn't just use the drill to begin with, then drill the screws into place.", speed);
-                            engineFixed = true;
-                            first.printSlow("The engine starts to stabilize and cool down. You wipe a bit of sweat off your head, then return to the cockpit.", speed);
+                            else {
+                                first.printSlow("Just type DRILL it's not that hard", speed);
+                            }
                         }
-                        else if (choice2 == "n") {
-                            first.printSlow("Odd choice but okay.", speed);
-                            choicePicked = true;
-                        }
-                        else
-                        {
-                            cout << "Invalid Input, try again" << endl;
-                        }
+                        first.printSlow("You smack your head with your hand, wondering why you didn't just use the drill to begin with, then drill the screws into place.", speed);
+                        engineFixed = true;
+                        first.printSlow("The engine starts to stabilize and cool down. You wipe a bit of sweat off your head, then return to the cockpit.", speed);
+                    }
+                    else if (choice2 == "n") {
+                        first.printSlow("Odd choice but okay.", speed);
+                        choicePicked = true;
+                    }
+                    else
+                    {
+                        cout << "Invalid Input, try again" << endl;
                     }
                 }
             }
-            else {
-                cout << "That's not something you can interact with. Try Again" << endl;
-            }
+        }
+        else {
+            cout << "That's not something you can interact with. Try Again" << endl;
         }
     }
-    first.pause(500, speed);
+}
+
+void lyreIntro() {
     first.printSlow("You then receive a call on your comms panel.On the other end is your totally trustworthy and loyal recruit, Lyre, flying near you in his own ship, calling you to ask about the planet Wotrana.", speed);
     first.printSlow("Lyre: Yo Captain! Isn't that the planet with the super valuable crystals over there?", speed);
     first.printSlow("You: Yeah? What about it?", speed);
@@ -166,6 +179,10 @@ void openingScene() {
     first.printSlow("You: What the heck! What's wrong with you?!", speed);
     first.printSlow("Lyre: Can't let you go back and rat me out to the boss now, can I?", speed);
     battle.startBattle(player, lyre);
+}
+
+
+void lyreBattleEnd() {
     first.printSlow("Your shields have suffered too much damage, your ship begins to break apart and fall into Wotrana's atmosphere. ", speed);
     first.printSlow("Lyre: Sorry captain, it's nothing personal. Oh wait, no it totally is, haha!", speed);
     first.printSlow("Lyre's ship flies down to Wotrana's surface. And yours does too, but... well, in a much more intense and violent manner.", speed);
@@ -174,6 +191,12 @@ void openingScene() {
     first.printSlow("The last thing you see before everything goes dark is a tree slamming into your ship.", speed);
     player.setPlayerHealth(100);
     first.dots(3, speed);
+}
+
+void openingScene() {
+    introDialogue();
+    lyreIntro();
+    lyreBattleEnd();
 }
 
 void firstCrash() {
@@ -239,8 +262,8 @@ int main() {
     player.setPlayerDamage(12);
     player.setPlayerArmor(15);
     speed = first.speedChoice();
+    openingScene();
     firstCrash();
-
     return 0;
 }
 
