@@ -6,8 +6,6 @@ using namespace std;
 class Player {
 private:
 	string playerName;
-	int playerX;
-	int playerY;
 
 	int playerHealth;
 	int playerDamage;
@@ -18,17 +16,7 @@ public:
 	void setPlayerName(string name);
 	string getPlayerName();
 
-	int getPlayerX();
-	int getPlayerY();
 
-	void setPlayerX(int x);
-	void setPlayerY(int y);
-	void setPlayerPosition(int x, int y);
-	// movement functions
-	void moveDown();
-	void moveUp();
-	void moveRight();
-	void moveLeft();
 
 	// getters and setters for player stats
 	int getPlayerDamage();

@@ -24,45 +24,6 @@ string Player::getPlayerName() {
 	return playerName;
 }
 
-void Player::moveDown() { //moves players y coordinate down 1
-	playerY++;
-}
-void Player::moveUp() { //moves players y coordinate up 1
-	playerY--;
-}
-void Player::moveRight() { //moves players x coordinate right 1
-	playerX++;
-}
-void Player::moveLeft() { //moves players x coordinate left 1
-	playerX--;
-}
-
-
-
-int Player::getPlayerX() { //returns players x coordinate
-	return playerX;
-}
-
-int Player::getPlayerY() { //returns players y coordinate
-	return playerY;
-}
-
-void Player::setPlayerX(int x) { //sets players x coordinate
-	playerX = x;
-	
-}
-
-void Player::setPlayerY(int y) { //sets players y coordinate
-	playerY = y;
-	
-}
-
-void Player::setPlayerPosition(int x, int y) { //sets players x and y coordinates
-	playerX = x;
-	playerY = y;
-}
-
-
 int Player::getPlayerHealth() {
     return playerHealth;
 }
