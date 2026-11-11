@@ -34,6 +34,7 @@ private:
     void lyreIntro();
     void lyreBattleEnd();
     void firstCrash();
+    void climbMinigame();
     void openingScene();
 public:
     explicit StoryManager(Player& player);

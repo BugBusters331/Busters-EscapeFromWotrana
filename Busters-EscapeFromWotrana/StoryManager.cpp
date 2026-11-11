@@ -196,6 +196,7 @@ void StoryManager::firstCrash() {
 
     first.printSlow("A few minutes later, you wake up.", speed);
     first.printSlow("Amazingly, you're not dead!", speed);
+    first.printSlow("The shields of your ship took some heavy hits during the battle, but you came out of it mostly unscathed.", speed);
     first.printSlow("You turn your head to the left and see a tree branch has stabbed through your chair, frighteningly close to your neck.", speed);
     first.printSlow("You also feel like you're being pulled upward by gravity. You look up and down and see the ground above you and the sky below you.", speed);
     first.printSlow("It seems you are hanging upside down, suspended only by the straps of your chair.", speed);
@@ -224,6 +225,7 @@ void StoryManager::firstCrash() {
             }
             else {
                 first.printSlow("But your grip on the branch is tight, and you're safe from falling.", speed);
+                first.printSlow("You plant your feet on a branch below you, then begin your descent down to the ground.", speed);
             }
             choicePicked = true;
         }
@@ -244,7 +246,141 @@ void StoryManager::firstCrash() {
         }
     }
     first.printSlow(" ", speed);
-    
+    if (onTree) {
+        climbMinigame();
+    }
+}
+
+void StoryManager::climbMinigame() {
+    int branch = 0;
+    bool onTree = true;
+    int fails = 0;
+    bool hasRock = false;
+    bool hasAcorn = false;
+    first.printSlow("Since only your ship was hit by Lyre, your health is still perfectly at 100.", speed);
+    first.printSlow("However if you're not careful you may take some damage on your way down the tree.", speed);
+    first.pause(500, speed);
+    while (onTree) {
+        choicePicked = false;
+        if (branch == 0) {
+            first.printSlow("There are currently 2 branches you can jump to. A strong looking branch and a weak looking branch. Will you choose the...", speed);
+            first.printSlow("1: Strong looking branch", speed);
+            first.printSlow("2: Weak looking branch", speed);
+            choice1 = first.prompt("");
+            if (choice1 == "1") {
+                branch = 1;
+                first.printSlow("The strong looking branch lives up to its description, staying firmly in place not bothered at all by the weight of you standing on it.", speed);
+            }
+            else if (choice1 == "2") {
+                branch = 5;
+                first.printSlow("The weak looking branch lives up to its description. It snaps the moment you step onto it, causing you to fall.", speed);
+            }
+            else {
+                cout << "Invalid Input." << endl;
+            }
+        }
+        if (branch == 1) {
+            first.printSlow("There are now 3 branches you can jump to. They all look the same in terms of sturdiness.", speed);
+            first.printSlow("One has a bird resting on it, another has a squirrel, and the last one has nothing on it but the branch itself has a cool looking pattern. Will you choose the...", speed);
+            first.printSlow("1: Branch with bird", speed);
+            first.printSlow("2: Branch with squirrel", speed);
+            first.printSlow("3: Patterned branch", speed);
+            first.printSlow("...oh and also there's an ACORN and a ROCK laying next to your feet on the current branch.", speed);
+            choice1 = first.prompt("");
+            if (choice1 == "ACORN") {
+                if (!hasAcorn) {
+                    first.printSlow("You pick up the acorn. Could be useful?", speed);
+                    hasAcorn = true;
+                }
+                else {
+                    first.printSlow("There's nothing you can do with the acorn yet.", speed);
+                }
+            }
+            else if (choice1 == "ROCK") {
+                if (!hasRock) {
+                    first.printSlow("You pick up the rock. Could be useful?", speed);
+                    hasRock = true;
+                }
+                else {
+                    first.printSlow("There's nothing you can do with the rock yet.", speed);
+                }
+            }
+            else if (choice1 == "1") {
+                branch = 2;
+                first.printSlow("You hop over to the branch with the bird on it.", speed);
+                first.printSlow("It flies away upon seeing you.", speed);
+                first.dots(3, speed);
+                first.printSlow("You are now alone on the branch, with no bird next to you.", speed);
+                first.printSlow("Not that it really matters though. The bird doesn't do anything useful for you.", speed);
+            }
+            else if (choice1 == "2") {
+                branch = 3;
+                first.printSlow("You hop over to the branch with the squirrel on it.", speed);
+            }
+            else if (choice1 == "3") {
+                branch = 4;
+                first.printSlow("You hop onto the patterned branch, then hear a loud hiss.", speed);
+                first.printSlow("It seems this patterned branch is actually the body of a large snake!", speed);
+            }
+            else {
+                cout << "Invalid Input." << endl;
+            }
+        }
+        if (branch == 2) {
+            first.printSlow("There is a very convenient vine next to you that appears to lead all the way to the ground.", speed);
+            first.printSlow("Or you can go to the next branch, with nothing particularly remarkable about it. Will you choose the...", speed);
+            first.printSlow("1: Shortcut vine", speed);
+            first.printSlow("2: Unremarkable branch", speed);
+            choice1 = first.prompt("");
+            if (choice1 == "1") {
+                first.printSlow("You grab onto the vine and start sliding down.", speed);
+                first.printSlow("You then start feeling painful pokes in your hands.", speed);
+                first.printSlow("Apparently this vine has thorns on it. A lot of them.", speed);
+                first.printSlow("You still make it to the ground safely, but your hands are sore.", speed);
+                onTree = false;
+                fails += 1;
+            }
+            else if (choice1 == "2") {
+                branch = 6;
+                first.printSlow("You feel disappointed missing out on the chance to go down the super convenient vine.", speed);
+                first.printSlow("But at least this branch seems fine.", speed);
+            }
+            else {
+                cout << "Invalid Input." << endl;
+            }
+        }
+        if (branch == 3) {
+            first.printSlow("You are on the branch with the squirrel.", speed);
+            if (hasAcorn) {
+                first.printSlow("The squirrel seems interested in your acorn.", speed);
+                choice1 = first.prompt("Do you give it? (yes/no)", speed);
+                if (choice1 == "y") {
+                    first.printSlow("You offer the acorn to the squirrel. It mistakes you for a threat and leaps onto your face, scratching and mauling you violently.", speed);
+                    
+                }
+                else if (choice1 == "n") {
+                    first.printSlow("The squirrel gets mad and decides to take the acorn anyway. It lunges onto your leg, crawls into your pocket, and snatches the acorn.", speed);
+                    hasAcorn = false;
+                    if (hasRock) {
+                        first.pause(500, speed);
+                        first.printSlow("And it also takes the rock from your pocket too for some reason.", speed);
+                        hasRock = false;
+                    }
+                    
+
+
+                }
+                else {
+                    cout << "Invalid Input." << endl;
+                }
+            }
+        }
+
+
+
+
+
+    }
 }
 
 // Dialogue class implementation
