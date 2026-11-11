@@ -353,7 +353,7 @@ void StoryManager::climbMinigame() {
             first.printSlow("You are on the branch with the squirrel.", speed);
             if (hasAcorn) {
                 first.printSlow("The squirrel seems interested in your acorn.", speed);
-                choice1 = first.prompt("Do you give it? (yes/no)", speed);
+                choice1 = first.prompt("Do you give it? (yes/no)");
                 if (choice1 == "y") {
                     first.printSlow("You offer the acorn to the squirrel. It mistakes you for a threat and leaps onto your face, scratching and mauling you violently.", speed);
                     
