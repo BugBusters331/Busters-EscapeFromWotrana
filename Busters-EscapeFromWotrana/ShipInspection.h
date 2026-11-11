@@ -1,6 +1,5 @@
 #pragma once
-class ShipInspection
-{
+class ShipInspection{
 private:
 	int cells;
 	int sparks;
