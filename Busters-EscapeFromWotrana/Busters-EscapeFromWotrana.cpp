@@ -1,11 +1,16 @@
 
 #include <iostream>
-#include "Player.h"
-#include "BattleManager.h"
+#include "GameManager.h"
 
 using namespace std;
 
 int main() {
+    GameManager game;
+    game.startGame();
+    return 0;
+}
+
+/*int main() {
 
     
  
@@ -24,11 +29,6 @@ int main() {
     cout << "\nBattle test completed!\n";
 
     return 0;
-}
-
-
-/*int main() {
-    GameManager game;
-    game.startGame();
-    return 0;
 }*/
+
+
