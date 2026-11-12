@@ -13,7 +13,7 @@ void StoryManager::startStory() {
     player.setPlayerDamage(12);
     player.setPlayerArmor(15);
     speed = first.speedChoice();
-    openingScene();
+    
     firstCrash();
 }
 
@@ -255,6 +255,7 @@ void StoryManager::climbMinigame() {
     int branch = 0;
     bool onTree = true;
     int fails = 0;
+    bool falling = false;
     bool hasRock = false;
     bool hasAcorn = false;
     first.printSlow("Since only your ship was hit by Lyre, your health is still perfectly at 100.", speed);
@@ -281,7 +282,7 @@ void StoryManager::climbMinigame() {
         }
         if (branch == 1) {
             first.printSlow("There are now 3 branches you can jump to. They all look the same in terms of sturdiness.", speed);
-            first.printSlow("One has a bird resting on it, another has a squirrel, and the last one has nothing on it but the branch itself has a cool looking pattern. Will you choose the...", speed);
+            first.printSlow("One has a bird resting on it, another has a squirrel, and the last one has nothing on it but the branch itself is really big and even has a cool pattern on it. Will you choose the...", speed);
             first.printSlow("1: Branch with bird", speed);
             first.printSlow("2: Branch with squirrel", speed);
             first.printSlow("3: Patterned branch", speed);
@@ -293,7 +294,7 @@ void StoryManager::climbMinigame() {
                     hasAcorn = true;
                 }
                 else {
-                    first.printSlow("There's nothing you can do with the acorn yet.", speed);
+                    first.printSlow("There's nothing you can do with the acorn right now.", speed);
                 }
             }
             else if (choice1 == "ROCK") {
@@ -302,7 +303,7 @@ void StoryManager::climbMinigame() {
                     hasRock = true;
                 }
                 else {
-                    first.printSlow("There's nothing you can do with the rock yet.", speed);
+                    first.printSlow("There's nothing you can do with the rock right now.", speed);
                 }
             }
             else if (choice1 == "1") {
@@ -312,6 +313,11 @@ void StoryManager::climbMinigame() {
                 first.dots(3, speed);
                 first.printSlow("You are now alone on the branch, with no bird next to you.", speed);
                 first.printSlow("Not that it really matters though. The bird doesn't do anything useful for you.", speed);
+                if (hasRock) {
+                    first.printSlow("You do still have that rock in your pocket, that you could throw at the bird.", speed);
+                    first.printSlow("If there were 2 birds you could even kill them with 1 stone...", speed);
+                    first.printSlow("But there's only 1 so what's the point?", speed);
+                }
             }
             else if (choice1 == "2") {
                 branch = 3;
@@ -345,42 +351,231 @@ void StoryManager::climbMinigame() {
                 first.printSlow("You feel disappointed missing out on the chance to go down the super convenient vine.", speed);
                 first.printSlow("But at least this branch seems fine.", speed);
             }
+            else if (choice1 == "ACORN") {
+                if (!hasAcorn) {
+                    first.printSlow("You do not have an acorn.", speed);
+                }
+                else {
+                    first.printSlow("There's nothing you can do with the acorn right now.", speed);
+                }
+            }
+            else if (choice1 == "ROCK") {
+                if (!hasRock) {
+                    first.printSlow("You do not have a rock.", speed);
+                }
+                else {
+                    first.printSlow("There's nothing you can do with the rock right now.", speed);
+                }
+            }
             else {
                 cout << "Invalid Input." << endl;
             }
         }
         if (branch == 3) {
-            first.printSlow("You are on the branch with the squirrel.", speed);
+            first.printSlow("You are on the branch with the squirrel. It looks like it might be a little bit rabid.", speed);
             if (hasAcorn) {
-                first.printSlow("The squirrel seems interested in your acorn.", speed);
+                first.printSlow("The squirrel takes interest in your acorn.", speed);
                 choice1 = first.prompt("Do you give it? (yes/no)");
                 if (choice1 == "y") {
                     first.printSlow("You offer the acorn to the squirrel. It mistakes you for a threat and leaps onto your face, scratching and mauling you violently.", speed);
-                    
+                    first.printSlow("You eventually manage to get the squirrel off of you, but then you slip and fall off the branch.", speed);
+                    fails += 2;
+                    branch = 5;
                 }
                 else if (choice1 == "n") {
                     first.printSlow("The squirrel gets mad and decides to take the acorn anyway. It lunges onto your leg, crawls into your pocket, and snatches the acorn.", speed);
                     hasAcorn = false;
                     if (hasRock) {
                         first.pause(500, speed);
-                        first.printSlow("And it also takes the rock from your pocket too for some reason.", speed);
+                        first.printSlow("And it also takes the rock from your pocket too.", speed);
                         hasRock = false;
                     }
-                    
-
-
+                    first.printSlow("The squirrel lets out a horrific screech at you before running away.", speed);
+                    branch = 8;
                 }
                 else {
                     cout << "Invalid Input." << endl;
                 }
             }
+            else {
+                first.prompt(stdPrompt);
+                first.printSlow("Before you even have a chance to think about your next action, the squirrel angrily bites your leg and runs off.", speed);
+                fails += 1;
+                branch = 8;
+            }
         }
+        if (branch == 4) {
+            first.printSlow("The head of the snake comes down to look at you standing on its body", speed);
+            first.printSlow("This snake is absolutely going to attack you if you don't do something quick.", speed);
+            choice1 = first.prompt(stdPrompt);
+            if (falling) {
+                first.printSlow("You're about to do whatever you just typed, but then you realize the snake actually isn't hostile.", speed);
+                first.printSlow("It actually feels bad for you since the developers are trying to troll you so badly, so it decides to escort you to the ground peacefully.", speed);
+                onTree = false;
+            }
+            else {
+                if (choice1 == "ROCK" && hasRock) {
+                    first.printSlow("You grab your rock and throw it at the snake.", speed);
+                    first.printSlow("It hits right in the snake's head. The snake starts panicking and slithering its body around to get away, which causes you to fall off.", speed);
+                    first.printSlow("But luckily you're able to land on another branch not too far below.", speed);
+                }
 
+                else if (choice1 == "ACORN" && hasAcorn) {
+                    first.printSlow("You grab your acorn and throw it at the snake.", speed);
+                    first.printSlow("The snake opens its mouth and eats the acorn whole. Then it bites into your side which hurts a lot.", speed);
+                    first.printSlow("You wince in pain, then the snake pushes you off of its body, and you fall to another branch not too far below.", speed);
+                    fails += 3;
+                }
+                else {
+                    first.printSlow("That's not something you can do right now.", speed);
+                    first.printSlow("Unfortunately you did not do something quick enough, and the snake bites into your side which hurts a lot.", speed);
+                    first.printSlow("You wince in pain, then the snake pushes you off of its body, and you fall to another branch not too far below.", speed);
+                    fails += 3;
+                }
+                branch = 9;
+            }
+        }
+        if (branch == 5) {
+            falling = true;
+            bool stillFalling = true;
+            first.printSlow("You are now in a state of free fall.", speed);
+            first.printSlow("There is a branch getting closer as you fall that you could grab on to, but you have no idea how durable this one will be.", speed);
+            choice1 = first.prompt("Do you want to try grabbing the branch? (yes/no)");
+            if (choice1 == "y") {
+                first.printSlow("You grab the branch and it snaps imediately too.", speed);
+                first.printSlow("Tough luck, maybe the next one will be better.", speed);
+            }
+            else if (choice1 == "n") {
+                first.printSlow("Yeah, maybe the next branch will be more promising.", speed);
+            }
+            else {
+                first.printSlow("That was an invalid input... but it doesn't matter, the branch was gonna break anyway.", speed);
+            }
+            first.printSlow("You continue falling. You approach another branch you can grab and this one for sure looks durable enough.", speed);
+            first.printSlow("Even with all the wind blowing in your face you can still see how sturdy this tree branch looks.", speed);
+            first.printSlow("It's so big and it even has a cool pattern on it.", speed);
+            first.printSlow("This shouldn't even be a choice, you should just grab the super cool branch. (yes/yes)", speed);
+            choicePicked = false;
+            while (!choicePicked) {
+                choice1 = first.prompt(" ");
+                if (choice1 == "y") {
+                    first.printSlow("You grab onto the branch. And it moves a lot more than you think it should.", speed);
+                    first.printSlow("You're startled by a sudden and loud hissing sound, realizing that this super cool tree branch you grabbed onto is actually a snake!", speed);
+                    stillFalling = false;
+                    branch = 4;
+                    choicePicked = true;
+                }
+                else if (choice1 == "n") {
+                    first.printSlow("okay. fine. guess you'll just keep falling.", speed);
+                    choicePicked = true;
+                }
+                else {
+                    cout << "Invalid Input, try again. (and when you do please choose yes!!!!)" << endl;
+                }
+            }
+            if (stillFalling) {
+                first.printSlow("You're about to slam into the ground in a very painful manner.", speed);
+                first.printSlow("There's only one more branch you can grab before that happens.", speed);
+                first.printSlow("Will you grab it? (yes/no)", speed);
+                choicePicked = false;
+                while (!choicePicked) {
+                    choice1 = first.prompt(" ");
+                    if (choice1 == "y") {
+                        first.printSlow("You grab onto the branch. And it's good you did because otherwise you would've been very hurt.", speed);
+                        choicePicked = true;
+                    }
+                    else if (choice1 == "n") {
+                        first.printSlow("You fall all the way to the ground. The feeling of slamming into the dirt is really rough, but it could've been worse.", speed);
+                        fails += 4;
+                        onTree = false;
+                        choicePicked = true;
+                    }
+                    else {
+                        cout << "Invalid Input, try again." << endl;
+                    }
+                }
+            }
+        }
+        if (branch == 6) {
+            first.printSlow("The boring branches continue for a bit longer, until after a while something interesting finally happens.", speed);
+            branch = 9;
+        }
+        if (branch == 8) {
+            first.dots(3, speed);
+            first.printSlow("That was strange. Regardless, there's nothing else of interest here, so you continue to the next branch.", speed);
+            branch = 9;
+        }
+        if (branch == 9) {
+            first.printSlow("You're almost at the bottom of the tree.", speed);
+            first.printSlow("But one final obstacle stands in your way.", speed);
+            first.printSlow("Somebody decided to place a large beartrap on the ground right where you would hop down.", speed);
+            bool beartrap = true;
+            first.printSlow("Perhaps there's something you could use to disarm the trap?", speed);
+            choicePicked = false;
+            while (!choicePicked) {
+                choice1 = first.prompt("Type an item to use it or type GO to go ahead and jump to the ground.");
+                if (choice1 == "ACORN") {
+                    if (hasAcorn) {
+                        first.printSlow("You toss the acorn into the trap, and it activates.", speed);
+                        first.printSlow("Now you can jump down to the ground safely.", speed);
+                        beartrap = false;
+                        choicePicked = true;
+                    }
+                    else {
+                        first.printSlow("You don't have an acorn right now.", speed);
+                    }
+                }
+                else if (choice1 == "ROCK") {
+                    if (hasRock) {
+                        first.printSlow("You toss the rock into the trap, and it activates.", speed);
+                        first.printSlow("Now you can jump down to the ground safely.", speed);
+                        beartrap = false;
+                        choicePicked = true;
+                    }
+                    else {
+                        first.printSlow("You don't have a rock right now.", speed);
+                    }
+                }
+                else if (choice1 == "GO") {
+                    first.printSlow("You brace yourself and jump down to the ground, setting off the beartrap.", speed);
+                    first.printSlow("Oddly enough it doesn't hurt as much as you though it would.", speed);
+                    first.printSlow("...as in instead of completely tearing you in half it just hurts a lot.", speed);
+                    fails += 3;
+                    choicePicked = true;
+                    if (!hasAcorn && !hasRock) {
+                        first.printSlow("Perhaps you should've picked up something along your way down the tree.", speed);
+                    }
+                }
 
-
-
-
+            }
+            onTree = false;
+        }
     }
+    first.printSlow("At last, you've made it to the ground safely.", speed);
+    if (fails > 0) {
+        first.printSlow("Well, safely might be a stretch. You did take damage on your way down.", speed);
+        if (fails < 2) {
+            first.printSlow("Luckily you only made one small slip up, so your HP is at a comfortable 90.", speed);
+            player.setPlayerHealth(90);
+        }
+        else if (fails < 3) {
+            first.printSlow("The damage wasn't too bad though, you're left with a solid 75 HP.", speed);
+            player.setPlayerHealth(75);
+        }
+        else if (fails < 5) {
+            first.printSlow("You got hurt quite a bit, but your HP is still at a decent 60.", speed);
+            player.setPlayerHealth(60);
+        }
+        else if (fails < 7) {
+            first.printSlow("You suffered quite a lot fo hits, bringing your HP down to 45.", speed);
+            player.setPlayerHealth(45);
+        }
+        else {
+            first.printSlow("A lot of damage in fact. It was really bad, you only have 30 HP left.", speed);
+            player.setPlayerHealth(30);
+        }
+    }
+    first.printSlow("You can now finally traverse Wotrana's surface and get to work on reapiring your ship.", speed);
 }
 
 // Dialogue class implementation
@@ -457,6 +652,27 @@ string dialogue::pars(string text) {
     }
     if (text == "n" || text == "no" || text == "N" || text == "NO") {
         text = "n";
+    }
+    if (text == "engine" || text == "ENGINE") {
+        text = "ENGINE";
+    }
+    if (text == "screw" || text == "screws" || text == "SCREW" || text == "SCREWS") {
+        text = "SCREWS";
+    }
+    if (text == "strap" || text == "straps" || text == "STRAP" || text == "STRAPS") {
+        text = "STRAPS";
+    }
+    if (text == "branch" || text == "BRANCH") {
+        text = "BRANCH";
+    }
+    if (text == "rock" || text == "ROCK") {
+        text = "ROCK";
+    }
+    if (text == "acorn" || text == "ACORN") {
+        text = "ACORN";
+    }
+    if (text == "drill" || text == "DRILL") {
+        text = "DRILL";
     }
     return text;
 }
