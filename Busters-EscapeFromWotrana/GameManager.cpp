@@ -56,12 +56,29 @@ void GameManager::updateGame() {
         locationManager.goToLocation(command.substr(5));
     } else if (command == "look") {
         locationManager.displayCurrentLocation(true);
-    } else if (command == "locations") {
+    }
+    else if (command == "locations") {
         locationManager.displayAvailableLocations();
+    }
+    else if (command == "inspect exterior") {
+        if (locationManager.getNameOfLocation() == "Crash Site") {
+            inspection.inspectExterior(3);
+        }
+        else {
+            cout << "You cannot inspect the spaceship's exterior from this location." << endl;
+        }
+    }
+    else if (command == "inspect interior"){
+        if (locationManager.getNameOfLocation() == "Ship") {
+            inspection.inspectShip(3);
+        }
+        else {
+            cout << "You must be inside the ship to inspect its interior." << endl;
+        }
     } else if (command == "quit") {
         stopGame();
     } else {
-        cout << "Invalid command. Use goto [location], look, locations, or quit.\n";
+        cout << "Invalid command. Use goto [location], look, locations, inspect interior, inspect exterior, or quit.\n";
     }
 }
 

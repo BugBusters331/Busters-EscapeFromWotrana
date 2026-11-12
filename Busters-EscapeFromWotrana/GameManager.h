@@ -4,12 +4,14 @@
 #include "LocationManager.h"
 #include "StoryManager.h"
 #include "MainMenu.h"
+#include "ShipInspection.h"
 
 class GameManager {
 private:
     Player player;
     StoryManager storyManager;
     LocationManager locationManager;
+    ShipInspection inspection;
     MainMenu menu;
     Chunks currentChunk;
     bool isRunning;

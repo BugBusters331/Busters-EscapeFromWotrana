@@ -11,5 +11,6 @@ public:
 
 	void inspectShip(int speed);
 	void updateMaterials(int newCells, int newSparks, int newPipes);
+	void inspectExterior(int speed);
 };
 
