@@ -1,4 +1,5 @@
 #include "StoryManager.h"
+#include "PlayerInput.h"
 #include <iostream>
 using namespace std;
 
@@ -14,6 +15,7 @@ void StoryManager::startStory() {
     player.setPlayerArmor(15);
     speed = first.speedChoice();
     
+	openingScene();
     firstCrash();
 }
 
@@ -581,26 +583,20 @@ void StoryManager::climbMinigame() {
 // Dialogue class implementation
 
 int dialogue::speedChoice() {
-    string sampleLine = "Text can appear slowly (like it's doing now) to add to the experience.";
-    printSlow(sampleLine, 1);
-    string ask = "Press 1 for normal text, press 2 for fast text, press 3 for instant text";
-    bool speedChosen = false;
-    while (!speedChosen) {
-        string speed = prompt(ask);
-        if (speed == "1") {
-            return 1;
-        }
-        else if (speed == "2") {
-            return 3;
-        }
-        else if (speed == "3") {
-            return 1000;
-        }
-        else {
-            cout << "Invalid input. ";
-        }
-    }
+    printSlow("Text can appear slowly (like it's doing now) to add to the experience.", 1);
 
+    const string question =
+        "Press 1 for normal text, press 2 for fast text, press 3 for instant text";
+
+    while (true) {
+        const string choice = prompt(question);
+
+        if (choice == "1") return 1;
+        if (choice == "2") return 3;
+        if (choice == "3") return 1000;
+
+        cout << "Invalid input. Enter 1, 2, or 3.\n";
+    }
 }
 
 void dialogue::print(string text) {
@@ -640,10 +636,7 @@ void dialogue::dots(int dots, int speed) {
 
 string dialogue::prompt(string text) {
     cout << text << endl;
-    string choice;
-    cin >> choice;
-    string parsOut = pars(choice);
-    return parsOut;
+    return pars(PlayerInput::readLine());
 }
 
 string dialogue::pars(string text) {
