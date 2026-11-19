@@ -41,13 +41,14 @@ BattleManager::BattleManager() {
 // START BATTLE
 // =====================================
 
-void BattleManager::startBattle(Player& player, Enemy& enemy) {
+bool BattleManager::startBattle(Player& player, Enemy& enemy) {
     this->player = &player;
     this->enemy = &enemy;
 
     battleActive = true;
 
     runBattle();
+    return enemy.getEnemyHealth() <= 0 && player.getPlayerHealth() > 0;
 }
 
 

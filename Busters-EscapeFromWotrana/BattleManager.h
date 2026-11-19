@@ -40,7 +40,7 @@ private:
 public:
     BattleManager();
 
-    void startBattle(Player& player, Enemy& enemy);
+    bool startBattle(Player& player, Enemy& enemy);
 
     bool isBattleActive();
 

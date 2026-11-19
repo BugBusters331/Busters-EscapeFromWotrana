@@ -173,7 +173,6 @@ void StoryManager::lyreIntro() {
     first.printSlow("You: What the heck! What's wrong with you?!", speed);
     first.printSlow("Lyre: Can't let you go back and rat me out to the boss now, can I?", speed);
     battle.startBattle(player, lyre);
-    battle.runBattle();
 }
 
 
