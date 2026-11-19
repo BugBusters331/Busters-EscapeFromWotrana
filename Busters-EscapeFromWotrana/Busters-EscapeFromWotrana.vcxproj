@@ -143,8 +143,10 @@
     <ClCompile Include="Busters-EscapeFromWotrana.cpp" />
     <ClCompile Include="Chunks.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="InventoryManager.cpp" />
     <ClCompile Include="LocationManager.cpp" />
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ShipInspection.cpp" />
     <ClCompile Include="StoryManager.cpp" />
@@ -153,9 +155,12 @@
     <ClInclude Include="BattleManager.h" />
     <ClInclude Include="Chunks.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="InventoryManager.h" />
     <ClInclude Include="LocationManager.h" />
     <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="NPC.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerInput.h" />
     <ClInclude Include="ShipInspection.h" />
     <ClInclude Include="StoryManager.h" />
   </ItemGroup>
