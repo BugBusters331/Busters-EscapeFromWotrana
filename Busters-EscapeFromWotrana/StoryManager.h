@@ -4,6 +4,7 @@
 #include <chrono>
 #include "Player.h"
 #include "BattleManager.h"
+#include "ShipInspection.h"
 using namespace std;
 
 // Keep dialogue method implementations in your existing StoryManager.cpp.
